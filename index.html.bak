@@ -442,7 +442,7 @@
       <div class="profile-section">
         <!-- 头像：把 src 换成你的头像图片路径即可 -->
         <div class="avatar">
-          <img src="avatar.png" alt="RE_CAT avatar">
+          <img src="re_cat.webp" alt="RE_CAT avatar">
           <!-- 如果暂时没有图片，可以删除上面的 <img>，改用下面的占位： -->
           <!-- <span class="avatar-placeholder">🐱</span> -->
         </div>
