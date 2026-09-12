@@ -1,1087 +1,478 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>初中古诗默写大挑战</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-  background:linear-gradient(160deg,#0d1b2a 0%,#1b2d45 40%,#2c1e3a 100%);
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-family:'华文楷体','KaiTi','Microsoft YaHei',serif;
-  padding:12px;
-  overflow-x:hidden;
-  position:relative;
-}
-/* 星空 */
-body::before{
-  content:'';
-  position:fixed;
-  inset:0;
-  background-image:
-    radial-gradient(2px 2px at 15% 25%, #fff, transparent),
-    radial-gradient(1px 1px at 55% 65%, #ffd, transparent),
-    radial-gradient(2px 2px at 85% 15%, #aaf, transparent),
-    radial-gradient(1px 1px at 35% 85%, #fff, transparent),
-    radial-gradient(1px 1px at 75% 45%, #ffd, transparent),
-    radial-gradient(2px 2px at 5% 55%, #fff, transparent);
-  background-size:250px 250px,300px 300px,280px 280px,320px 320px,260px 260px,350px 350px;
-  animation:starMove 80s linear infinite;
-  opacity:0.5;
-  z-index:0;
-}
-@keyframes starMove{from{background-position:0 0;}to{background-position:250px 750px;}}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>RE_CAT · 个人主页</title>
+  <!-- 柔和的字体与基础样式 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-/* 飘落墨点 */
-.ink-dot{
-  position:fixed;
-  border-radius:50%;
-  background:radial-gradient(circle,#f5e6c8,transparent);
-  pointer-events:none;
-  z-index:1;
-  animation:inkFall linear infinite;
-  opacity:0.3;
-}
-@keyframes inkFall{
-  0%{transform:translateY(-10vh) scale(0.5);opacity:0.4;}
-  100%{transform:translateY(110vh) scale(1.2);opacity:0;}
-}
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #f7f5f2;  /* 暖白基底 */
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #1e1e1e;
+    }
 
-/* 主容器 */
-.game-wrap{
-  position:relative;
-  z-index:5;
-  max-width:900px;
-  width:100%;
-  background:linear-gradient(170deg,#fdf6e3,#f5e6c8 70%,#ead9b5);
-  border-radius:32px;
-  box-shadow:0 25px 70px rgba(0,0,0,0.85),0 0 100px rgba(180,140,80,0.15),inset 0 0 0 3px #c9a96a;
-  padding:0 0 22px;
-  border:2px solid #b8955a;
-  overflow:hidden;
-}
+    /* 主内容区域 – 包裹页面卡片，保持底部导航固定 */
+    .app {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 600px;
+      width: 100%;
+      margin: 0 auto;
+      background: #ffffff;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.02);
+      min-height: 100vh;  /* 让白色背景贯穿 */
+      position: relative;
+      border-radius: 0;    /* 移动端全宽，如果需要可加圆角 */
+    }
 
-/* 顶部栏 */
-.top-bar{
-  background:linear-gradient(90deg,#1a1208,#3d2b14,#1a1208);
-  padding:14px 22px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:10px;
-  border-bottom:3px solid #c9a96a;
-  position:relative;
-}
-.top-bar::after{
-  content:'';
-  position:absolute;
-  bottom:-3px;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,transparent,#ffd700,transparent);
-}
-.mode-badge{
-  display:flex;align-items:center;gap:10px;color:#f5e6c8;
-}
-.mode-icon{
-  width:42px;height:42px;
-  background:radial-gradient(circle,#ffd700,#b8860b);
-  border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.4rem;
-  border:2px solid #ffd700;
-  box-shadow:0 0 15px rgba(255,215,0,0.5);
-  animation:iconPulse 2s ease-in-out infinite;
-}
-@keyframes iconPulse{
-  0%,100%{box-shadow:0 0 15px rgba(255,215,0,0.5);}
-  50%{box-shadow:0 0 28px rgba(255,215,0,0.9);}
-}
-.mode-name{font-size:1.05rem;font-weight:700;letter-spacing:2px;color:#ffd700;text-shadow:0 0 10px rgba(255,215,0,0.4);}
-.mode-sub{font-size:0.7rem;color:#c9a96a;letter-spacing:1px;}
+    /* 页面内容容器 (会随页面切换显示/隐藏) */
+    .page {
+      flex: 1;
+      display: none;
+      flex-direction: column;
+      padding: 32px 24px 20px;
+      animation: fadeIn 0.25s ease;
+    }
 
-.timer-box{
-  display:flex;align-items:center;gap:8px;
-  background:rgba(255,255,255,0.08);
-  padding:6px 18px;border-radius:40px;
-  border:1px solid #c9a96a;
-  color:#f5e6c8;font-size:1rem;font-weight:700;
-}
-.timer-value{
-  font-size:1.5rem;color:#ffd700;
-  text-shadow:0 0 10px rgba(255,215,0,0.6);
-  min-width:60px;text-align:center;
-  font-family:'Courier New',monospace;
-}
-.timer-value.warning{color:#ff5252;text-shadow:0 0 15px rgba(255,80,80,0.9);animation:timerBlink 0.5s ease infinite;}
-@keyframes timerBlink{0%,100%{opacity:1;}50%{opacity:0.4;}}
+    .page.active {
+      display: flex;
+    }
 
-.score-box{
-  display:flex;align-items:center;gap:8px;
-  color:#f5e6c8;font-size:0.95rem;
-}
-.score-num{
-  background:#3e2e1c;color:#ffd700;
-  padding:4px 16px;border-radius:30px;
-  font-size:1.3rem;font-weight:800;
-  box-shadow:inset 0 -3px 0 #1f150c,0 3px 0 #6b4f2e;
-  min-width:60px;text-align:center;
-}
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-/* 进度条 */
-.progress-track{height:7px;background:#1a1208;position:relative;overflow:hidden;}
-.progress-fill{
-  height:100%;
-  background:linear-gradient(90deg,#b8860b,#ffd700,#ffec80);
-  width:0%;transition:width 0.5s cubic-bezier(0.34,1.56,0.64,1);
-  box-shadow:0 0 12px rgba(255,215,0,0.7);
-}
+    /* ---------- 第一页：个人信息 ---------- */
+    .profile-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
 
-/* 模式选择 */
-.mode-select{
-  padding:16px 20px 8px;
-  display:flex;justify-content:center;gap:12px;flex-wrap:wrap;
-}
-.mode-btn{
-  padding:10px 26px;border-radius:40px;
-  border:2px solid #c9a96a;
-  background:linear-gradient(180deg,#fffef9,#f5ecd6);
-  color:#5c4a2e;font-weight:700;font-size:0.95rem;
-  cursor:pointer;font-family:'华文楷体','KaiTi',serif;
-  letter-spacing:1px;transition:all 0.15s;
-  box-shadow:0 3px 0 #a88a52;
-}
-.mode-btn:hover{transform:translateY(-2px);box-shadow:0 5px 0 #a88a52;background:#fff8e7;}
-.mode-btn:active{transform:translateY(2px);box-shadow:0 1px 0 #a88a52;}
-.mode-btn.active{
-  background:linear-gradient(180deg,#ffd700,#e6a800);
-  color:#3d2b10;border-color:#b8860b;
-  box-shadow:0 3px 0 #8a6500,0 0 20px rgba(255,215,0,0.4);
-}
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #e0dbd2;  /* 占位底色 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.1);
+      border: 3px solid #ffffff;
+      outline: 1px solid #eeeae4;
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
 
-/* 主题/年级标签选择 */
-.topic-select{
-  padding:6px 20px 10px;
-  display:flex;justify-content:center;gap:8px;flex-wrap:wrap;
-  min-height:44px;
-}
-.topic-btn{
-  padding:6px 18px;border-radius:30px;
-  border:1.5px solid #cdb894;
-  background:rgba(255,255,255,0.5);
-  color:#6b5a3e;font-weight:600;font-size:0.85rem;
-  cursor:pointer;font-family:'华文楷体','KaiTi',serif;
-  transition:all 0.15s;
-}
-.topic-btn:hover{background:#fff8e7;border-color:#b8955a;}
-.topic-btn.active{
-  background:linear-gradient(180deg,#8d6e63,#5d4037);
-  color:#f5e6c8;border-color:#3e2723;
-  box-shadow:0 0 12px rgba(141,110,99,0.5);
-}
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
-/* 题目区 */
-.quiz-area{
-  margin:0 16px;
-  background:linear-gradient(180deg,#fffdf7,#fdf6e3);
-  border-radius:22px;
-  padding:24px 24px 18px;
-  box-shadow:inset 0 0 0 2px #d4b87a,inset 0 0 35px rgba(200,160,90,0.1),0 8px 20px rgba(0,0,0,0.1);
-  border:1px solid #c9a96a;
-  position:relative;
-  min-height:280px;
-}
+    /* 如果没有图片，用文字/图标替代——这里使用 CSS 绘制一个可爱的猫爪/字母，但为了通用性，保留背景色+首字母 */
+    .avatar-placeholder {
+      font-size: 3.2rem;
+      font-weight: 600;
+      color: #b1a79b;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      line-height: 1;
+    }
 
-/* 来源标签 */
-.source-tag{
-  display:inline-block;
-  background:linear-gradient(90deg,#5d4037,#8d6e63);
-  color:#f5e6c8;
-  padding:4px 16px;border-radius:20px;
-  font-size:0.78rem;font-weight:700;
-  letter-spacing:1px;
-  margin-bottom:14px;
-  box-shadow:0 2px 8px rgba(93,64,55,0.3);
-}
+    .username {
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+      color: #111;
+    }
 
-/* 题目提示 */
-.question-hint{
-  font-size:0.9rem;color:#8d6e63;
-  margin-bottom:12px;font-weight:600;
-  letter-spacing:1px;
-  display:flex;align-items:center;gap:6px;
-}
+    .username small {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #9c8f82;
+      margin-left: 6px;
+      letter-spacing: 0.3px;
+    }
 
-/* 原文展示 */
-.poem-display{
-  font-size:1.7rem;
-  color:#2c1e0e;
-  text-align:center;
-  line-height:1.9;
-  margin:10px 0 22px;
-  font-weight:600;
-  letter-spacing:2px;
-  text-shadow:1px 1px 0 rgba(200,170,120,0.2);
-  min-height:5rem;
-  padding:0 10px;
-}
-.poem-blank{
-  display:inline-block;
-  min-width:110px;
-  border-bottom:3px solid #b8860b;
-  margin:0 8px;
-  padding:0 6px;
-  color:#b8860b;
-  font-weight:800;
-  text-align:center;
-  background:linear-gradient(to right,transparent,rgba(255,215,0,0.15),transparent);
-  border-radius:3px;
-  animation:blankGlow 1.2s ease-in-out infinite;
-}
-@keyframes blankGlow{
-  0%,100%{background:linear-gradient(to right,transparent,rgba(255,215,0,0.15),transparent);}
-  50%{background:linear-gradient(to right,transparent,rgba(255,215,0,0.35),transparent);border-bottom-color:#ffd700;}
-}
+    .tagline {
+      font-size: 0.9rem;
+      color: #8f8479;
+      margin-bottom: 28px;
+      font-weight: 400;
+    }
 
-/* 输入区域 */
-.input-area{
-  display:flex;gap:10px;align-items:center;
-  max-width:600px;margin:0 auto 16px;
-}
-.answer-input{
-  flex:1;
-  padding:16px 20px;
-  font-size:1.3rem;
-  font-family:'华文楷体','KaiTi',serif;
-  color:#2c1e0e;
-  background:#fffef9;
-  border:3px solid #cdb894;
-  border-radius:16px;
-  outline:none;
-  transition:all 0.2s;
-  letter-spacing:2px;
-  text-align:center;
-  box-shadow:inset 0 2px 6px rgba(120,90,50,0.1);
-}
-.answer-input:focus{
-  border-color:#ffd700;
-  box-shadow:inset 0 2px 6px rgba(120,90,50,0.1),0 0 0 3px rgba(255,215,0,0.25);
-  background:#fff;
-}
-.answer-input:disabled{opacity:0.6;cursor:not-allowed;}
-.answer-input.correct-input{
-  border-color:#2e7d32;background:#e8f5e9;
-  box-shadow:0 0 20px rgba(76,175,80,0.4);
-}
-.answer-input.wrong-input{
-  border-color:#c62828;background:#ffebee;
-  box-shadow:0 0 20px rgba(244,67,54,0.3);
-  animation:inputShake 0.4s ease;
-}
-@keyframes inputShake{
-  0%,100%{transform:translateX(0);}
-  20%{transform:translateX(-8px);}
-  40%{transform:translateX(8px);}
-  60%{transform:translateX(-5px);}
-  80%{transform:translateX(5px);}
-}
+    /* 社交卡片列表 */
+    .social-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
+    }
 
-.submit-btn{
-  padding:16px 30px;
-  font-size:1.1rem;font-weight:700;
-  font-family:'华文楷体','KaiTi',serif;
-  color:#fff;
-  background:linear-gradient(180deg,#4caf50,#2e7d32);
-  border:none;border-radius:16px;
-  cursor:pointer;letter-spacing:2px;
-  box-shadow:0 4px 0 #1b5e20,0 6px 14px rgba(0,0,0,0.2);
-  transition:all 0.12s;white-space:nowrap;
-}
-.submit-btn:hover:not(:disabled){
-  transform:translateY(-2px);
-  box-shadow:0 6px 0 #1b5e20,0 10px 20px rgba(0,0,0,0.25);
-  background:linear-gradient(180deg,#66bb6a,#388e3c);
-}
-.submit-btn:active:not(:disabled){
-  transform:translateY(3px);
-  box-shadow:0 1px 0 #1b5e20,0 4px 10px rgba(0,0,0,0.15);
-}
-.submit-btn:disabled{opacity:0.5;cursor:default;transform:translateY(2px);box-shadow:0 2px 0 #1b5e20;}
+    .social-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: #faf9f7;
+      border-radius: 18px;
+      border: 1px solid #f0ece7;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      color: inherit;
+    }
 
-/* 反馈 */
-.feedback-msg{
-  text-align:center;
-  font-size:1.15rem;font-weight:700;
-  min-height:2.6rem;
-  padding:8px;border-radius:14px;
-  transition:all 0.3s;
-  display:flex;align-items:center;justify-content:center;
-  gap:8px;letter-spacing:1px;
-}
-.feedback-msg.success{color:#2e7d32;background:rgba(76,175,80,0.1);}
-.feedback-msg.error{color:#c62828;background:rgba(244,67,54,0.08);}
+    .social-item:hover {
+      background: #f3f1ed;
+      border-color: #e4ddd4;
+      transform: scale(1.005);
+    }
 
-/* 答案提示 */
-.answer-reveal{
-  text-align:center;
-  font-size:1rem;
-  color:#8d6e63;
-  margin-top:6px;
-  font-weight:600;
-  letter-spacing:1px;
-  min-height:1.5rem;
-}
-.answer-reveal b{color:#b8860b;font-size:1.1rem;}
+    .social-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 500;
+    }
 
-/* 操作栏 */
-.action-bar{
-  display:flex;justify-content:center;gap:14px;
-  margin-top:16px;flex-wrap:wrap;
-}
-.btn{
-  border:none;padding:13px 32px;
-  font-size:1.05rem;font-weight:700;
-  border-radius:50px;cursor:pointer;
-  letter-spacing:2px;
-  font-family:'华文楷体','KaiTi',serif;
-  transition:all 0.12s;
-  min-width:140px;
-  border:2px solid rgba(255,255,255,0.15);
-}
-.btn-skip{
-  background:linear-gradient(180deg,#ff9800,#e65100);
-  color:#fff;
-  box-shadow:0 4px 0 #bf360c,0 6px 14px rgba(0,0,0,0.2);
-}
-.btn-skip:hover:not(:disabled){
-  transform:translateY(-2px);
-  box-shadow:0 6px 0 #bf360c,0 10px 20px rgba(0,0,0,0.25);
-}
-.btn-skip:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 #bf360c;}
-.btn-skip:disabled{opacity:0.45;transform:translateY(2px);box-shadow:0 2px 0 #bf360c;cursor:default;}
+    .social-icon {
+      width: 28px;
+      height: 28px;
+      background: #e9e3db;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #6b5f54;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
 
-.btn-restart{
-  background:linear-gradient(180deg,#8d6e63,#5d4037);
-  color:#fff;
-  box-shadow:0 4px 0 #3e2723,0 6px 14px rgba(0,0,0,0.2);
-}
-.btn-restart:hover{
-  transform:translateY(-2px);
-  box-shadow:0 6px 0 #3e2723,0 10px 20px rgba(0,0,0,0.25);
-}
-.btn-restart:active{transform:translateY(3px);box-shadow:0 1px 0 #3e2723;}
+    .social-label {
+      font-size: 0.98rem;
+      color: #3d352e;
+    }
 
-/* 浮动得分 */
-.float-score{
-  position:fixed;
-  font-size:2rem;font-weight:900;
-  color:#ffd700;
-  text-shadow:0 0 15px #ff8f00,0 0 30px #ff6f00;
-  pointer-events:none;z-index:999;
-  animation:floatUp 1.1s ease-out forwards;
-}
-@keyframes floatUp{
-  0%{opacity:1;transform:translateY(0) scale(1);}
-  100%{opacity:0;transform:translateY(-90px) scale(1.5);}
-}
+    .social-handle {
+      font-size: 0.92rem;
+      color: #7b6e62;
+      font-weight: 400;
+      max-width: 180px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
-/* 彩带 */
-.confetti{
-  position:fixed;width:10px;height:10px;
-  pointer-events:none;z-index:998;
-  animation:confettiFall 2s ease-out forwards;
-}
-@keyframes confettiFall{
-  0%{opacity:1;transform:translateY(0) rotate(0deg) scale(1);}
-  100%{opacity:0;transform:translateY(80vh) rotate(720deg) scale(0.5);}
-}
+    /* 第二个页面专属样式 */
+    .game-page {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 24px;
+    }
 
-/* 结算弹窗 */
-.overlay{
-  position:fixed;inset:0;
-  background:rgba(0,0,0,0.75);
-  display:flex;align-items:center;justify-content:center;
-  z-index:100;opacity:0;pointer-events:none;
-  transition:opacity 0.4s;backdrop-filter:blur(5px);
-}
-.overlay.show{opacity:1;pointer-events:auto;}
-.result-card{
-  background:linear-gradient(170deg,#fff8e1,#ffe082,#ffd54f);
-  border-radius:28px;padding:36px 40px;
-  text-align:center;
-  box-shadow:0 0 70px rgba(255,215,0,0.8),0 20px 50px rgba(0,0,0,0.5);
-  border:4px solid #ffb300;
-  transform:scale(0.7);
-  transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
-  max-width:400px;width:90%;
-}
-.overlay.show .result-card{transform:scale(1);}
-.result-emoji{font-size:4rem;display:block;animation:resultBounce 0.8s ease infinite alternate;}
-@keyframes resultBounce{
-  from{transform:translateY(0) scale(1);}
-  to{transform:translateY(-12px) scale(1.1);}
-}
-.result-title{
-  font-size:1.5rem;color:#e65100;
-  margin:12px 0 8px;font-weight:800;letter-spacing:3px;
-}
-.result-stats{
-  font-size:1rem;color:#bf360c;
-  margin-bottom:20px;line-height:2;
-}
-.result-stats b{color:#e65100;font-size:1.3rem;}
-.btn-result{
-  background:linear-gradient(180deg,#ff8f00,#e65100);
-  border:none;padding:12px 44px;
-  font-size:1.1rem;font-weight:700;
-  color:#fff;border-radius:50px;
-  cursor:pointer;letter-spacing:2px;
-  font-family:'华文楷体','KaiTi',serif;
-  box-shadow:0 5px 0 #bf360c,0 8px 16px rgba(0,0,0,0.3);
-  transition:all 0.12s;
-}
-.btn-result:hover{transform:translateY(-2px);box-shadow:0 7px 0 #bf360c,0 12px 24px rgba(0,0,0,0.35);}
-.btn-result:active{transform:translateY(3px);box-shadow:0 1px 0 #bf360c;}
+    .game-icon {
+      font-size: 4rem;
+      margin-bottom: 24px;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.05));
+    }
 
-/* 空状态 */
-.empty-state{
-  text-align:center;
-  padding:40px 20px;
-  color:#8d6e63;
-  font-size:1.1rem;
-  line-height:2;
-}
-.empty-state .big{font-size:3rem;display:block;margin-bottom:10px;}
+    .game-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
 
-@media(max-width:600px){
-  .game-wrap{border-radius:22px;}
-  .top-bar{padding:10px 12px;}
-  .mode-icon{width:34px;height:34px;font-size:1.1rem;}
-  .mode-name{font-size:0.85rem;}
-  .timer-value{font-size:1.2rem;min-width:48px;}
-  .score-num{font-size:1rem;padding:3px 12px;min-width:48px;}
-  .quiz-area{padding:16px 14px 12px;margin:0 10px;}
-  .poem-display{font-size:1.25rem;min-height:4rem;}
-  .poem-blank{min-width:80px;}
-  .input-area{flex-direction:column;gap:8px;}
-  .answer-input{width:100%;font-size:1.1rem;padding:13px 16px;}
-  .submit-btn{width:100%;padding:14px;}
-  .btn{padding:11px 20px;font-size:0.9rem;min-width:110px;}
-  .mode-btn{padding:8px 18px;font-size:0.82rem;}
-  .topic-btn{padding:5px 14px;font-size:0.78rem;}
-}
-</style>
+    .game-desc {
+      font-size: 1rem;
+      color: #7b6e62;
+      max-width: 260px;
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+
+    .game-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #1e1e1e;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 16px 32px;
+      border-radius: 60px;
+      font-size: 1.05rem;
+      letter-spacing: 0.3px;
+      transition: all 0.2s ease;
+      border: 1px solid #1e1e1e;
+      box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.15);
+    }
+
+    .game-button:hover {
+      background: #333;
+      border-color: #333;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 22px -10px rgba(0, 0, 0, 0.2);
+    }
+
+    .game-button:active {
+      transform: translateY(0);
+      box-shadow: 0 6px 12px -8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 底部导航栏 */
+    .bottom-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      background: #ffffff;
+      border-top: 1px solid #f0ece7;
+      padding: 10px 0 12px;
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      position: sticky;
+      bottom: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .nav-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      background: transparent;
+      border: none;
+      font-family: inherit;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: #a89e93;
+      padding: 8px 0 4px;
+      cursor: pointer;
+      transition: color 0.15s ease, transform 0.1s ease;
+      letter-spacing: 0.2px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .nav-btn svg {
+      width: 24px;
+      height: 24px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.15s ease;
+    }
+
+    .nav-btn.active {
+      color: #1e1e1e;
+      font-weight: 600;
+    }
+
+    .nav-btn.active svg {
+      stroke: #1e1e1e;
+      stroke-width: 2;
+    }
+
+    .nav-btn:hover {
+      color: #5a4f46;
+    }
+
+    .nav-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* 小调整 */
+    .spacer {
+      height: 4px;
+    }
+
+    /* 移动端友好的内边距 */
+    @media (max-width: 420px) {
+      .page {
+        padding: 24px 18px 16px;
+      }
+      .avatar {
+        width: 100px;
+        height: 100px;
+      }
+      .username {
+        font-size: 1.7rem;
+      }
+      .social-item {
+        padding: 12px 14px;
+      }
+      .social-handle {
+        max-width: 130px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="app">
+    <!-- 第一页：个人信息 -->
+    <div class="page active" id="page-profile">
+      <div class="profile-section">
+        <!-- 头像区: 因为无实际图片，用占位文字 RE 表示猫猫感，也可以替换成img -->
+        <div class="avatar">
+          <!-- 此处可换成 <img src="你的头像url" alt="RE_CAT avatar">，目前用文字占位 -->
+          <span class="avatar-placeholder">🐱</span>
+        </div>
+        <div class="username">RE_CAT</div>
+        <div class="tagline">digital creature · 偶尔写游戏</div>
 
-<div class="game-wrap">
-  <!-- 顶部栏 -->
-  <div class="top-bar">
-    <div class="mode-badge">
-      <div class="mode-icon" id="modeIcon">📚</div>
-      <div>
-        <div class="mode-name" id="modeName">年级闯关</div>
-        <div class="mode-sub" id="modeSub">七年级 · 上册</div>
+        <!-- 社交链接列表，使用语义化锚点 -->
+        <div class="social-list">
+          <!-- Bilibili -->
+          <a href="https://space.bilibili.com/" class="social-item" target="_blank" rel="noopener noreferrer">
+            <div class="social-left">
+              <span class="social-icon">B</span>
+              <span class="social-label">Bilibili</span>
+            </div>
+            <span class="social-handle">@ARE_CAT</span>
+          </a>
+
+          <!-- Weixin (微信) 用文本展示，可添加复制或跳转? 一般展示微信号-->
+          <div class="social-item" style="cursor: default;">
+            <div class="social-left">
+              <span class="social-icon">微</span>
+              <span class="social-label">Weixin</span>
+            </div>
+            <span class="social-handle">@Re_Cat_Me</span>
+          </div>
+
+          <!-- Gmail -->
+          <a href="mailto:arch.recat@gmail.com" class="social-item">
+            <div class="social-left">
+              <span class="social-icon">G</span>
+              <span class="social-label">Gmail</span>
+            </div>
+            <span class="social-handle">arch.recat@gmail.com</span>
+          </a>
+
+          <!-- Telegram -->
+          <a href="https://t.me/RE_CAT0" class="social-item" target="_blank" rel="noopener noreferrer">
+            <div class="social-left">
+              <span class="social-icon">TG</span>
+              <span class="social-label">Telegram</span>
+            </div>
+            <span class="social-handle">@RE_CAT0</span>
+          </a>
+        </div>
+      </div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- 第二页：游戏页面 (内容展示+跳转链接) -->
+    <div class="page game-page" id="page-game">
+      <div class="game-icon">🎮</div>
+      <div class="game-title">XF Game</div>
+      <div class="game-desc">
+        我自己制作的小游戏<br>点击下方按钮直接开玩
+      </div>
+      <!-- 跳转至 xfast.cc.cd/game.html -->
+      <a href="http://xfast.cc.cd/game.html" class="game-button" target="_blank" rel="noopener noreferrer">
+        <span>进入游戏</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: white;">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+      <div style="margin-top: 24px; font-size: 0.8rem; color: #b9afa5;">
+        xfast.cc.cd/game.html
       </div>
     </div>
-    <div class="timer-box">
-      <span>⏱️</span>
-      <span class="timer-value" id="timerDisplay">--</span>
-    </div>
-    <div class="score-box">
-      <span>⭐</span>
-      <span class="score-num" id="scoreDisplay">0</span>
-    </div>
+
+    <!-- 底部导航栏 -->
+    <nav class="bottom-nav">
+      <button class="nav-btn active" id="navProfile" aria-label="个人信息">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <span>我的</span>
+      </button>
+      <button class="nav-btn" id="navGame" aria-label="游戏">
+        <svg viewBox="0 0 24 24">
+          <rect x="2" y="6" width="20" height="12" rx="3" ry="3"></rect>
+          <line x1="8" y1="12" x2="16" y2="12"></line>
+          <line x1="12" y1="8" x2="12" y2="16"></line>
+        </svg>
+        <span>游戏</span>
+      </button>
+    </nav>
   </div>
 
-  <!-- 进度条 -->
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <script>
+    (function() {
+      // 获取页面元素
+      const pageProfile = document.getElementById('page-profile');
+      const pageGame = document.getElementById('page-game');
+      const navProfile = document.getElementById('navProfile');
+      const navGame = document.getElementById('navGame');
 
-  <!-- 模式选择 -->
-  <div class="mode-select" id="modeSelect">
-    <button class="mode-btn active" data-mode="grade">📖 年级闯关</button>
-    <button class="mode-btn" data-mode="topic">🎯 主题挑战</button>
-  </div>
+      // 切换页面函数
+      function setActivePage(pageId) {
+        // 隐藏所有页面
+        pageProfile.classList.remove('active');
+        pageGame.classList.remove('active');
 
-  <!-- 主题/年级标签 -->
-  <div class="topic-select" id="topicSelect"></div>
-
-  <!-- 答题区 -->
-  <div class="quiz-area" id="quizArea">
-    <div id="quizContent"></div>
-  </div>
-
-  <!-- 操作栏 -->
-  <div class="action-bar">
-    <button class="btn btn-skip" id="skipBtn" disabled>⏭️ 跳过本题</button>
-    <button class="btn btn-restart" id="restartBtn">🔄 重新开始</button>
-  </div>
-</div>
-
-<!-- 结算弹窗 -->
-<div class="overlay" id="resultOverlay">
-  <div class="result-card">
-    <span class="result-emoji" id="resultEmoji">🏆</span>
-    <div class="result-title" id="resultTitle">挑战完成！</div>
-    <div class="result-stats" id="resultStats"></div>
-    <button class="btn-result" id="resultBtn">再来一次</button>
-  </div>
-</div>
-
-<script>
-(function(){
-  // ============================================================
-  // 题库 —— 部编版初中语文必背古诗文
-  // 每题包含：source(出处)、display(展示的诗句，用______表示待填)、
-  // answer(正确答案)、type('next'填下句/'prev'填上句)、
-  // grade(年级)、topic(主题)
-  // ============================================================
-  const questionBank = [
-    // ---------- 七年级 ----------
-    { source:"《观沧海》曹操", display:"日月之行，若出其中；______，若出其里。", answer:"星汉灿烂", type:"next", grade:"七年级", topic:"壮志豪情" },
-    { source:"《观沧海》曹操", display:"______，以观沧海。", answer:"东临碣石", type:"prev", grade:"七年级", topic:"壮志豪情" },
-    { source:"《闻王昌龄左迁龙标遥有此寄》李白", display:"我寄愁心与明月，______。", answer:"随君直到夜郎西", type:"next", grade:"七年级", topic:"友情送别" },
-    { source:"《闻王昌龄左迁龙标遥有此寄》李白", display:"______，闻道龙标过五溪。", answer:"杨花落尽子规啼", type:"prev", grade:"七年级", topic:"友情送别" },
-    { source:"《次北固山下》王湾", display:"潮平两岸阔，______。", answer:"风正一帆悬", type:"next", grade:"七年级", topic:"思乡怀人" },
-    { source:"《次北固山下》王湾", display:"______，江春入旧年。", answer:"海日生残夜", type:"prev", grade:"七年级", topic:"思乡怀人" },
-    { source:"《天净沙·秋思》马致远", display:"枯藤老树昏鸦，______，古道西风瘦马。", answer:"小桥流水人家", type:"next", grade:"七年级", topic:"思乡怀人" },
-    { source:"《天净沙·秋思》马致远", display:"夕阳西下，______。", answer:"断肠人在天涯", type:"next", grade:"七年级", topic:"思乡怀人" },
-    { source:"《木兰诗》北朝民歌", display:"将军百战死，______。", answer:"壮士十年归", type:"next", grade:"七年级", topic:"边塞征战" },
-    { source:"《木兰诗》北朝民歌", display:"______，关山度若飞。", answer:"万里赴戎机", type:"prev", grade:"七年级", topic:"边塞征战" },
-    { source:"《登幽州台歌》陈子昂", display:"前不见古人，______。", answer:"后不见来者", type:"next", grade:"七年级", topic:"咏史怀古" },
-    { source:"《望岳》杜甫", display:"会当凌绝顶，______。", answer:"一览众山小", type:"next", grade:"七年级", topic:"壮志豪情" },
-    { source:"《望岳》杜甫", display:"______，阴阳割昏晓。", answer:"造化钟神秀", type:"prev", grade:"七年级", topic:"壮志豪情" },
-    { source:"《登飞来峰》王安石", display:"不畏浮云遮望眼，______。", answer:"自缘身在最高层", type:"next", grade:"七年级", topic:"壮志豪情" },
-    { source:"《游山西村》陆游", display:"山重水复疑无路，______。", answer:"柳暗花明又一村", type:"next", grade:"七年级", topic:"哲理感悟" },
-    { source:"《己亥杂诗》龚自珍", display:"落红不是无情物，______。", answer:"化作春泥更护花", type:"next", grade:"七年级", topic:"哲理感悟" },
-
-    // ---------- 八年级 ----------
-    { source:"《黄鹤楼》崔颢", display:"日暮乡关何处是？______。", answer:"烟波江上使人愁", type:"next", grade:"八年级", topic:"思乡怀人" },
-    { source:"《黄鹤楼》崔颢", display:"______，白云千载空悠悠。", answer:"黄鹤一去不复返", type:"prev", grade:"八年级", topic:"思乡怀人" },
-    { source:"《使至塞上》王维", display:"大漠孤烟直，______。", answer:"长河落日圆", type:"next", grade:"八年级", topic:"边塞征战" },
-    { source:"《使至塞上》王维", display:"______，长河落日圆。", answer:"大漠孤烟直", type:"prev", grade:"八年级", topic:"边塞征战" },
-    { source:"《钱塘湖春行》白居易", display:"几处早莺争暖树，______。", answer:"谁家新燕啄春泥", type:"next", grade:"八年级", topic:"山水田园" },
-    { source:"《钱塘湖春行》白居易", display:"______，浅草才能没马蹄。", answer:"乱花渐欲迷人眼", type:"prev", grade:"八年级", topic:"山水田园" },
-    { source:"《饮酒（其五）》陶渊明", display:"采菊东篱下，______。", answer:"悠然见南山", type:"next", grade:"八年级", topic:"山水田园" },
-    { source:"《饮酒（其五）》陶渊明", display:"______，而无车马喧。", answer:"结庐在人境", type:"prev", grade:"八年级", topic:"山水田园" },
-    { source:"《春望》杜甫", display:"烽火连三月，______。", answer:"家书抵万金", type:"next", grade:"八年级", topic:"忧国忧民" },
-    { source:"《春望》杜甫", display:"______，城春草木深。", answer:"国破山河在", type:"prev", grade:"八年级", topic:"忧国忧民" },
-    { source:"《雁门太守行》李贺", display:"黑云压城城欲摧，______。", answer:"甲光向日金鳞开", type:"next", grade:"八年级", topic:"边塞征战" },
-    { source:"《赤壁》杜牧", display:"东风不与周郎便，______。", answer:"铜雀春深锁二乔", type:"next", grade:"八年级", topic:"咏史怀古" },
-    { source:"《渔家傲》李清照", display:"九万里风鹏正举。风休住，______！", answer:"蓬舟吹取三山去", type:"next", grade:"八年级", topic:"壮志豪情" },
-
-    // ---------- 九年级 ----------
-    { source:"《行路难》李白", display:"长风破浪会有时，______。", answer:"直挂云帆济沧海", type:"next", grade:"九年级", topic:"壮志豪情" },
-    { source:"《行路难》李白", display:"______，忽复乘舟梦日边。", answer:"闲来垂钓碧溪上", type:"prev", grade:"九年级", topic:"壮志豪情" },
-    { source:"《酬乐天扬州初逢席上见赠》刘禹锡", display:"沉舟侧畔千帆过，______。", answer:"病树前头万木春", type:"next", grade:"九年级", topic:"哲理感悟" },
-    { source:"《酬乐天扬州初逢席上见赠》刘禹锡", display:"______，到乡翻似烂柯人。", answer:"怀旧空吟闻笛赋", type:"prev", grade:"九年级", topic:"哲理感悟" },
-    { source:"《水调歌头》苏轼", display:"但愿人长久，______。", answer:"千里共婵娟", type:"next", grade:"九年级", topic:"思乡怀人" },
-    { source:"《水调歌头》苏轼", display:"______，千里共婵娟。", answer:"但愿人长久", type:"prev", grade:"九年级", topic:"思乡怀人" },
-    { source:"《破阵子·为陈同甫赋壮词以寄之》辛弃疾", display:"了却君王天下事，______。", answer:"赢得生前身后名", type:"next", grade:"九年级", topic:"壮志豪情" },
-    { source:"《破阵子·为陈同甫赋壮词以寄之》辛弃疾", display:"______，五十弦翻塞外声。", answer:"八百里分麾下炙", type:"prev", grade:"九年级", topic:"边塞征战" },
-    { source:"《过零丁洋》文天祥", display:"人生自古谁无死？______。", answer:"留取丹心照汗青", type:"next", grade:"九年级", topic:"忧国忧民" },
-    { source:"《过零丁洋》文天祥", display:"______，身世浮沉雨打萍。", answer:"山河破碎风飘絮", type:"prev", grade:"九年级", topic:"忧国忧民" },
-    { source:"《山坡羊·潼关怀古》张养浩", display:"兴，百姓苦；______。", answer:"亡，百姓苦", type:"next", grade:"九年级", topic:"咏史怀古" },
-    { source:"《山坡羊·潼关怀古》张养浩", display:"______，波涛如怒。", answer:"峰峦如聚", type:"prev", grade:"九年级", topic:"咏史怀古" },
-  ];
-
-  // ============================================================
-  // 游戏状态
-  // ============================================================
-  let currentMode = 'grade';           // 'grade' 或 'topic'
-  let currentFilter = '七年级';         // 当前筛选：年级名或主题名
-  let questionQueue = [];              // 当前题目队列（随机打乱后）
-  let currentIndex = 0;                // 当前题目在队列中的索引
-  let score = 0;                       // 总得分
-  let correctCount = 0;                // 答对数量
-  let totalAnswered = 0;               // 已答题数
-  let answered = false;                // 当前题是否已作答
-  let timerInterval = null;            // 计时器
-  let timeLeft = 0;                    // 剩余时间（秒）
-  let timerEnabled = true;             // 是否开启计时
-  let comboCount = 0;                  // 连击数
-
-  // DOM 元素
-  const modeIcon = document.getElementById('modeIcon');
-  const modeName = document.getElementById('modeName');
-  const modeSub = document.getElementById('modeSub');
-  const timerDisplay = document.getElementById('timerDisplay');
-  const scoreDisplay = document.getElementById('scoreDisplay');
-  const progressFill = document.getElementById('progressFill');
-  const modeSelect = document.getElementById('modeSelect');
-  const topicSelect = document.getElementById('topicSelect');
-  const quizContent = document.getElementById('quizContent');
-  const skipBtn = document.getElementById('skipBtn');
-  const restartBtn = document.getElementById('restartBtn');
-  const resultOverlay = document.getElementById('resultOverlay');
-  const resultEmoji = document.getElementById('resultEmoji');
-  const resultTitle = document.getElementById('resultTitle');
-  const resultStats = document.getElementById('resultStats');
-  const resultBtn = document.getElementById('resultBtn');
-
-  // ============================================================
-  // 工具函数
-  // ============================================================
-
-  // 打乱数组
-  function shuffle(arr) {
-    const a = [...arr];
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
-
-  // 标准化字符串：去除标点、空格，用于答案匹配
-  function normalize(str) {
-    return str.replace(/[\s，。！？；：、,.!?;:'"“”‘’（）()《》【】—…·\-]/g, '').trim();
-  }
-
-  // 判断答案是否正确（支持多答案，用/分隔）
-  function checkAnswer(userAnswer, correctAnswer) {
-    const user = normalize(userAnswer);
-    const corrects = correctAnswer.split('/').map(s => normalize(s));
-    return corrects.includes(user);
-  }
-
-  // 获取筛选后的题目
-  function getFilteredQuestions(mode, filter) {
-    if (mode === 'grade') {
-      return questionBank.filter(q => q.grade === filter);
-    } else {
-      return questionBank.filter(q => q.topic === filter);
-    }
-  }
-
-  // 获取所有年级
-  function getAllGrades() {
-    return [...new Set(questionBank.map(q => q.grade))];
-  }
-
-  // 获取所有主题
-  function getAllTopics() {
-    return [...new Set(questionBank.map(q => q.topic))];
-  }
-
-  // ============================================================
-  // 界面渲染
-  // ============================================================
-
-  // 渲染筛选标签
-  function renderTopicSelect() {
-    topicSelect.innerHTML = '';
-    let items = [];
-    if (currentMode === 'grade') {
-      items = getAllGrades();
-    } else {
-      items = getAllTopics();
-    }
-
-    items.forEach(item => {
-      const btn = document.createElement('button');
-      btn.className = 'topic-btn' + (item === currentFilter ? ' active' : '');
-      btn.textContent = item;
-      btn.addEventListener('click', () => {
-        currentFilter = item;
-        renderTopicSelect();
-        startSession();
-      });
-      topicSelect.appendChild(btn);
-    });
-  }
-
-  // 更新模式显示
-  function updateModeDisplay() {
-    if (currentMode === 'grade') {
-      modeIcon.textContent = '📚';
-      modeName.textContent = '年级闯关';
-      modeSub.textContent = currentFilter;
-    } else {
-      modeIcon.textContent = '🎯';
-      modeName.textContent = '主题挑战';
-      modeSub.textContent = currentFilter;
-    }
-  }
-
-  // 更新进度条
-  function updateProgress() {
-    const total = questionQueue.length;
-    const done = currentIndex;
-    const pct = total > 0 ? (done / total) * 100 : 0;
-    progressFill.style.width = pct + '%';
-  }
-
-  // ============================================================
-  // 计时器
-  // ============================================================
-  function startTimer(seconds) {
-    stopTimer();
-    timeLeft = seconds;
-    timerEnabled = true;
-    updateTimerDisplay();
-    timerInterval = setInterval(() => {
-      timeLeft--;
-      updateTimerDisplay();
-      if (timeLeft <= 0) {
-        stopTimer();
-        // 时间到，自动判错
-        if (!answered) {
-          handleTimeout();
+        // 显示选中页面
+        if (pageId === 'profile') {
+          pageProfile.classList.add('active');
+          navProfile.classList.add('active');
+          navGame.classList.remove('active');
+        } else if (pageId === 'game') {
+          pageGame.classList.add('active');
+          navGame.classList.add('active');
+          navProfile.classList.remove('active');
         }
       }
-    }, 1000);
-  }
 
-  function stopTimer() {
-    if (timerInterval) {
-      clearInterval(timerInterval);
-      timerInterval = null;
-    }
-  }
+      // 为导航按钮绑定事件
+      navProfile.addEventListener('click', function() {
+        setActivePage('profile');
+      });
 
-  function updateTimerDisplay() {
-    if (!timerEnabled) {
-      timerDisplay.textContent = '--';
-      timerDisplay.classList.remove('warning');
-      return;
-    }
-    const m = Math.floor(timeLeft / 60);
-    const s = timeLeft % 60;
-    timerDisplay.textContent = `${m}:${s.toString().padStart(2,'0')}`;
-    if (timeLeft <= 10) {
-      timerDisplay.classList.add('warning');
-    } else {
-      timerDisplay.classList.remove('warning');
-    }
-  }
+      navGame.addEventListener('click', function() {
+        setActivePage('game');
+      });
 
-  // 超时处理
-  function handleTimeout() {
-    if (answered) return;
-    answered = true;
-    stopTimer();
+      // 可选：检查url hash? 但为了简单，不处理。保持默认第一页。
+      // 如果希望点击游戏按钮后，在游戏页面有一个跳转，但已经用a标签实现了。
+      // 确保所有社交链接无干扰。
+    })();
+  </script>
 
-    const input = document.querySelector('.answer-input');
-    const submitBtn = document.querySelector('.submit-btn');
-    if (input) input.disabled = true;
-    if (submitBtn) submitBtn.disabled = true;
-
-    // 显示正确答案
-    const q = questionQueue[currentIndex];
-    showAnswerReveal(q.answer);
-
-    // 标记为错误
-    if (input) input.classList.add('wrong-input');
-    const fb = document.querySelector('.feedback-msg');
-    if (fb) {
-      fb.textContent = '⏰ 时间到！正确答案已显示';
-      fb.className = 'feedback-msg error';
-    }
-
-    comboCount = 0;
-    skipBtn.disabled = false;
-    skipBtn.textContent = '下一题 ➡️';
-    skipBtn.onclick = () => nextQuestion();
-  }
-
-  // ============================================================
-  // 答题逻辑
-  // ============================================================
-
-  // 开始一轮（根据当前模式和筛选）
-  function startSession() {
-    stopTimer();
-    const filtered = getFilteredQuestions(currentMode, currentFilter);
-    if (filtered.length === 0) {
-      quizContent.innerHTML = '<div class="empty-state"><span class="big">📭</span>该分类下暂无题目</div>';
-      skipBtn.disabled = true;
-      return;
-    }
-    questionQueue = shuffle(filtered);
-    currentIndex = 0;
-    score = 0;
-    correctCount = 0;
-    totalAnswered = 0;
-    comboCount = 0;
-    scoreDisplay.textContent = '0';
-    updateProgress();
-    updateModeDisplay();
-    loadQuestion();
-  }
-
-  // 加载当前题目
-  function loadQuestion() {
-    if (currentIndex >= questionQueue.length) {
-      showResult();
-      return;
-    }
-
-    answered = false;
-    const q = questionQueue[currentIndex];
-
-    // 构建界面
-    quizContent.innerHTML = `
-      <div class="source-tag">📜 ${q.source}</div>
-      <div class="question-hint">
-        <span>${q.type === 'next' ? '👉 请填写下一句' : '👈 请填写上一句'}</span>
-      </div>
-      <div class="poem-display" id="poemDisplay"></div>
-      <div class="input-area">
-        <input type="text" class="answer-input" id="answerInput"
-               placeholder="输入诗句…" autocomplete="off" spellcheck="false" />
-        <button class="submit-btn" id="submitBtn">✔ 确认</button>
-      </div>
-      <div class="feedback-msg" id="feedbackMsg"></div>
-      <div class="answer-reveal" id="answerReveal"></div>
-    `;
-
-    // 渲染诗句（将______替换为高亮）
-    const poemDisplay = document.getElementById('poemDisplay');
-    const rawText = q.display;
-    // 转义HTML
-    let safe = rawText
-      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    safe = safe.replace(/_{3,}/g, '<span class="poem-blank">______</span>');
-    poemDisplay.innerHTML = safe;
-
-    // 绑定事件
-    const input = document.getElementById('answerInput');
-    const submitBtn = document.getElementById('submitBtn');
-
-    submitBtn.addEventListener('click', () => submitAnswer());
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        submitAnswer();
-      }
-    });
-
-    // 计时（每题20秒）
-    startTimer(20);
-
-    // 跳过按钮状态
-    skipBtn.disabled = true;
-    skipBtn.textContent = '⏭️ 跳过本题';
-    skipBtn.onclick = () => {
-      if (!answered) {
-        // 跳过算错
-        answered = true;
-        stopTimer();
-        const inp = document.querySelector('.answer-input');
-        const sb = document.querySelector('.submit-btn');
-        if (inp) inp.disabled = true;
-        if (sb) sb.disabled = true;
-        showAnswerReveal(q.answer);
-        const fb = document.querySelector('.feedback-msg');
-        if (fb) { fb.textContent = '⏭️ 已跳过'; fb.className = 'feedback-msg error'; }
-        comboCount = 0;
-      }
-      skipBtn.disabled = false;
-      skipBtn.textContent = '下一题 ➡️';
-      skipBtn.onclick = () => nextQuestion();
-    };
-
-    // 自动聚焦输入框
-    setTimeout(() => input.focus(), 100);
-    updateProgress();
-  }
-
-  // 提交答案
-  function submitAnswer() {
-    if (answered) return;
-    const q = questionQueue[currentIndex];
-    const input = document.getElementById('answerInput');
-    const submitBtn = document.getElementById('submitBtn');
-    const fb = document.getElementById('feedbackMsg');
-    const userAnswer = input.value.trim();
-
-    if (!userAnswer) {
-      fb.textContent = '✏️ 请先输入答案';
-      fb.className = 'feedback-msg error';
-      input.focus();
-      return;
-    }
-
-    answered = true;
-    stopTimer();
-    input.disabled = true;
-    submitBtn.disabled = true;
-
-    const isCorrect = checkAnswer(userAnswer, q.answer);
-    totalAnswered++;
-
-    if (isCorrect) {
-      // 答对
-      correctCount++;
-      comboCount++;
-
-      // 基础分10分 + 连击奖励
-      const comboBonus = Math.min(comboCount - 1, 5) * 3;
-      const timeBonus = Math.max(0, Math.floor(timeLeft / 4));
-      const gain = 10 + comboBonus + timeBonus;
-      score += gain;
-      scoreDisplay.textContent = score;
-
-      input.classList.add('correct-input');
-      fb.innerHTML = `✅ 正确！+${gain}分 ${comboCount > 1 ? `🔥${comboCount}连击` : ''}`;
-      fb.className = 'feedback-msg success';
-
-      showFloatScore('+' + gain);
-      if (comboCount >= 3) spawnConfetti(15);
-    } else {
-      // 答错
-      comboCount = 0;
-      input.classList.add('wrong-input');
-      fb.innerHTML = `❌ 答错了，正确答案已显示`;
-      fb.className = 'feedback-msg error';
-      showAnswerReveal(q.answer);
-    }
-
-    // 显示正确答案（答对也显示，加深记忆）
-    if (isCorrect) showAnswerReveal(q.answer, true);
-
-    skipBtn.disabled = false;
-    skipBtn.textContent = '下一题 ➡️';
-    skipBtn.onclick = () => nextQuestion();
-  }
-
-  // 显示正确答案
-  function showAnswerReveal(answer, success) {
-    const el = document.getElementById('answerReveal');
-    if (el) {
-      el.innerHTML = `📖 正确答案：<b>${answer}</b>`;
-      if (success) el.style.color = '#2e7d32';
-      else el.style.color = '#8d6e63';
-    }
-  }
-
-  // 下一题
-  function nextQuestion() {
-    currentIndex++;
-    updateProgress();
-    loadQuestion();
-  }
-
-  // 浮动得分
-  function showFloatScore(text) {
-    const el = document.createElement('div');
-    el.className = 'float-score';
-    el.textContent = text;
-    el.style.left = (window.innerWidth / 2 - 40) + 'px';
-    el.style.top = (window.innerHeight / 2 - 60) + 'px';
-    document.body.appendChild(el);
-    setTimeout(() => el.remove(), 1100);
-  }
-
-  // 彩带
-  function spawnConfetti(count) {
-    const colors = ['#ffd700','#ff6b6b','#4ecdc4','#ffe66d','#a8e6cf','#ff8b94','#b5e2ff'];
-    for (let i = 0; i < count; i++) {
-      const c = document.createElement('div');
-      c.className = 'confetti';
-      c.style.left = Math.random() * 100 + '%';
-      c.style.top = '-20px';
-      c.style.background = colors[Math.floor(Math.random() * colors.length)];
-      c.style.width = (Math.random() * 8 + 5) + 'px';
-      c.style.height = (Math.random() * 8 + 5) + 'px';
-      c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-      c.style.animationDuration = (Math.random() * 1.5 + 1.5) + 's';
-      c.style.animationDelay = (Math.random() * 0.5) + 's';
-      document.body.appendChild(c);
-      setTimeout(() => c.remove(), 3000);
-    }
-  }
-
-  // ============================================================
-  // 结算
-  // ============================================================
-  function showResult() {
-    stopTimer();
-    const total = questionQueue.length;
-    const accuracy = total > 0 ? Math.round((correctCount / total) * 100) : 0;
-
-    let emoji, title;
-    if (accuracy >= 90) { emoji = '🏆'; title = '诗仙级表现！'; }
-    else if (accuracy >= 70) { emoji = '🥈'; title = '诗圣级表现！'; }
-    else if (accuracy >= 50) { emoji = '🥉'; title = '诗童级表现！'; }
-    else { emoji = '📖'; title = '继续加油！'; }
-
-    resultEmoji.textContent = emoji;
-    resultTitle.textContent = title;
-    resultStats.innerHTML = `
-      总题数：<b>${total}</b> 题<br>
-      答对：<b>${correctCount}</b> 题<br>
-      正确率：<b>${accuracy}%</b><br>
-      总得分：<b>${score}</b> 分
-    `;
-    resultOverlay.classList.add('show');
-  }
-
-  // ============================================================
-  // 事件绑定
-  // ============================================================
-  function init() {
-    // 模式切换
-    modeSelect.addEventListener('click', (e) => {
-      const btn = e.target.closest('.mode-btn');
-      if (!btn) return;
-      const mode = btn.dataset.mode;
-      if (mode === currentMode) return;
-
-      currentMode = mode;
-      document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      // 重置筛选为该模式的第一个选项
-      if (mode === 'grade') {
-        currentFilter = getAllGrades()[0];
-      } else {
-        currentFilter = getAllTopics()[0];
-      }
-
-      renderTopicSelect();
-      updateModeDisplay();
-      startSession();
-    });
-
-    // 重新开始
-    restartBtn.addEventListener('click', () => {
-      resultOverlay.classList.remove('show');
-      startSession();
-    });
-
-    // 结算弹窗按钮
-    resultBtn.addEventListener('click', () => {
-      resultOverlay.classList.remove('show');
-      startSession();
-    });
-
-    // 初始化
-    renderTopicSelect();
-    updateModeDisplay();
-    startSession();
-
-    // 墨点特效
-    setInterval(() => {
-      const dot = document.createElement('div');
-      dot.className = 'ink-dot';
-      const size = Math.random() * 12 + 4;
-      dot.style.width = size + 'px';
-      dot.style.height = size + 'px';
-      dot.style.left = Math.random() * 100 + '%';
-      dot.style.animationDuration = (Math.random() * 8 + 8) + 's';
-      dot.style.animationDelay = Math.random() * 3 + 's';
-      document.body.appendChild(dot);
-      setTimeout(() => dot.remove(), 18000);
-    }, 800);
-  }
-
-  init();
-})();
-</script>
+  <!-- 一些额外的安全处理：如果目标网站是http，但当前是https可能被block，保留用户自行处理 -->
+  <!-- 注意：xfast.cc.cd/game.html 可能无https，但用户要求原样跳转，直接使用a标签即可 -->
 </body>
 </html>
