@@ -7,34 +7,24 @@
 <style>
 /* ============================================================
    Material Design 3 (M3) Baseline Color Scheme - Light
-   参考 M3 颜色角色系统，使用 CSS 自定义属性映射
    ============================================================ */
 :root {
-  /* Primary 色组 */
   --md-primary: #6750A4;
   --md-on-primary: #FFFFFF;
   --md-primary-container: #EADDFF;
   --md-on-primary-container: #21005D;
-
-  /* Secondary 色组 */
   --md-secondary: #625B71;
   --md-on-secondary: #FFFFFF;
   --md-secondary-container: #E8DEF8;
   --md-on-secondary-container: #1D192B;
-
-  /* Tertiary 色组 */
   --md-tertiary: #7D5260;
   --md-on-tertiary: #FFFFFF;
   --md-tertiary-container: #FFD8E4;
   --md-on-tertiary-container: #31111D;
-
-  /* Error 色组 */
   --md-error: #B3261E;
   --md-on-error: #FFFFFF;
   --md-error-container: #F9DEDC;
   --md-on-error-container: #410E0B;
-
-  /* Neutral / Surface 色组 */
   --md-background: #FEF7FF;
   --md-on-background: #1D1B20;
   --md-surface: #FEF7FF;
@@ -48,12 +38,9 @@
   --md-surface-container-highest: #E6E0E9;
   --md-outline: #79747E;
   --md-outline-variant: #CAC4D0;
-
-  /* 固定强调色 - 用于成功/正确状态 */
   --md-success: #2E7D32;
   --md-success-container: #C8E6C9;
 
-  /* Shape 令牌 - 参考 M3 Shape 规范 [citation:5] */
   --md-shape-xs: 4px;
   --md-shape-sm: 8px;
   --md-shape-md: 12px;
@@ -61,7 +48,6 @@
   --md-shape-xl: 28px;
   --md-shape-full: 9999px;
 
-  /* Motion 令牌 - 参考 M3 Easing & Duration [citation:6] */
   --md-ease-standard: cubic-bezier(0.2, 0.0, 0, 1.0);
   --md-ease-emphasized: cubic-bezier(0.05, 0.7, 0.1, 1.0);
   --md-ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1.0);
@@ -73,14 +59,7 @@
   --md-duration-long2: 500ms;
 }
 
-/* ============================================================
-   Reset & Base
-   ============================================================ */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   background-color: var(--md-background);
@@ -93,14 +72,10 @@ body {
   padding: 16px;
   position: relative;
   overflow-x: hidden;
-  /* M3 字体渲染优化 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ============================================================
-   主容器 - Surface 角色，使用 Surface Container 层级
-   ============================================================ */
 .game-container {
   position: relative;
   z-index: 10;
@@ -108,16 +83,11 @@ body {
   max-width: 880px;
   background-color: var(--md-surface-container-low);
   border-radius: var(--md-shape-xl);
-  box-shadow: 
-    0 4px 8px 3px rgba(0, 0, 0, 0.05),
-    0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 8px 3px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.08);
   overflow: hidden;
-  transition: box-shadow var(--md-duration-medium2) var(--md-ease-standard);
 }
 
-/* ============================================================
-   顶部状态栏 - 使用 Primary Container 的变体
-   ============================================================ */
+/* 顶部状态栏 */
 .status-bar {
   display: flex;
   align-items: center;
@@ -130,7 +100,6 @@ body {
   position: relative;
 }
 
-/* 进度条 - Linear Progress 风格 */
 .progress-track {
   height: 4px;
   background-color: var(--md-surface-variant);
@@ -146,9 +115,7 @@ body {
   border-radius: 0 var(--md-shape-xs) var(--md-shape-xs) 0;
 }
 
-/* ============================================================
-   Filled Button 风格 - 参考 M3 Buttons [citation:3]
-   ============================================================ */
+/* 按钮 */
 .btn-filled {
   display: inline-flex;
   align-items: center;
@@ -163,28 +130,20 @@ body {
   font-weight: 500;
   letter-spacing: 0.1px;
   cursor: pointer;
-  transition: 
-    background-color var(--md-duration-short4) var(--md-ease-standard),
-    box-shadow var(--md-duration-short4) var(--md-ease-standard),
-    transform var(--md-duration-short2) var(--md-ease-standard);
-  box-shadow: 
-    0 1px 2px rgba(0, 0, 0, 0.1),
-    0 1px 3px 1px rgba(0, 0, 0, 0.05);
+  transition: background-color var(--md-duration-short4) var(--md-ease-standard),
+              box-shadow var(--md-duration-short4) var(--md-ease-standard),
+              transform var(--md-duration-short2) var(--md-ease-standard);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 3px 1px rgba(0, 0, 0, 0.05);
   position: relative;
   overflow: hidden;
 }
 
 .btn-filled:hover:not(:disabled) {
-  background-color: #7F67BE; /* Primary 的稍亮变体 */
-  box-shadow: 
-    0 2px 4px rgba(0, 0, 0, 0.12),
-    0 1px 3px 1px rgba(0, 0, 0, 0.08);
+  background-color: #7F67BE;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 1px 3px 1px rgba(0, 0, 0, 0.08);
 }
 
-.btn-filled:active:not(:disabled) {
-  transform: scale(0.98);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
+.btn-filled:active:not(:disabled) { transform: scale(0.98); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }
 
 .btn-filled:disabled {
   background-color: rgba(29, 27, 32, 0.12);
@@ -193,7 +152,6 @@ body {
   box-shadow: none;
 }
 
-/* Tonal Button 风格 - 用于次级操作 */
 .btn-tonal {
   display: inline-flex;
   align-items: center;
@@ -206,24 +164,16 @@ body {
   color: var(--md-on-secondary-container);
   font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0.1px;
   cursor: pointer;
-  transition: 
-    background-color var(--md-duration-short4) var(--md-ease-standard),
-    box-shadow var(--md-duration-short4) var(--md-ease-standard),
-    transform var(--md-duration-short2) var(--md-ease-standard);
+  transition: background-color var(--md-duration-short4) var(--md-ease-standard),
+              box-shadow var(--md-duration-short4) var(--md-ease-standard),
+              transform var(--md-duration-short2) var(--md-ease-standard);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-.btn-tonal:hover:not(:disabled) {
-  background-color: #D0C4E0;
-}
+.btn-tonal:hover:not(:disabled) { background-color: #D0C4E0; }
+.btn-tonal:active:not(:disabled) { transform: scale(0.98); }
 
-.btn-tonal:active:not(:disabled) {
-  transform: scale(0.98);
-}
-
-/* Outlined Button - 用于重新开始 */
 .btn-outlined {
   display: inline-flex;
   align-items: center;
@@ -236,32 +186,16 @@ body {
   color: var(--md-primary);
   font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0.1px;
   cursor: pointer;
-  transition: 
-    background-color var(--md-duration-short4) var(--md-ease-standard),
-    border-color var(--md-duration-short4) var(--md-ease-standard);
+  transition: background-color var(--md-duration-short4) var(--md-ease-standard),
+              border-color var(--md-duration-short4) var(--md-ease-standard);
 }
 
-.btn-outlined:hover:not(:disabled) {
-  background-color: rgba(103, 80, 164, 0.08);
-  border-color: var(--md-primary);
-}
+.btn-outlined:hover:not(:disabled) { background-color: rgba(103, 80, 164, 0.08); border-color: var(--md-primary); }
 
-/* ============================================================
-   模式选择 - Segmented Button 风格 (M3 旧规范) [citation:14]
-   ============================================================ */
-.mode-selector {
-  display: flex;
-  gap: 0;
-  padding: 12px 20px;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.mode-selector::-webkit-scrollbar {
-  display: none;
-}
+/* 模式选择 */
+.mode-selector { display: flex; gap: 0; padding: 12px 20px; overflow-x: auto; scrollbar-width: none; }
+.mode-selector::-webkit-scrollbar { display: none; }
 
 .segment-btn {
   flex: 1;
@@ -273,45 +207,19 @@ body {
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: 
-    background-color var(--md-duration-short4) var(--md-ease-standard),
-    color var(--md-duration-short4) var(--md-ease-standard);
+  transition: background-color var(--md-duration-short4) var(--md-ease-standard),
+              color var(--md-duration-short4) var(--md-ease-standard);
   position: relative;
 }
 
-.segment-btn:first-child {
-  border-radius: var(--md-shape-full) 0 0 var(--md-shape-full);
-  border-right: none;
-}
+.segment-btn:first-child { border-radius: var(--md-shape-full) 0 0 var(--md-shape-full); border-right: none; }
+.segment-btn:last-child { border-radius: 0 var(--md-shape-full) var(--md-shape-full) 0; }
+.segment-btn.active { background-color: var(--md-secondary-container); color: var(--md-on-secondary-container); border-color: transparent; }
+.segment-btn:not(.active):hover { background-color: rgba(103, 80, 164, 0.08); }
 
-.segment-btn:last-child {
-  border-radius: 0 var(--md-shape-full) var(--md-shape-full) 0;
-}
-
-.segment-btn.active {
-  background-color: var(--md-secondary-container);
-  color: var(--md-on-secondary-container);
-  border-color: transparent;
-}
-
-.segment-btn:not(.active):hover {
-  background-color: rgba(103, 80, 164, 0.08);
-}
-
-/* ============================================================
-   标签选择 - Filter Chip 风格
-   ============================================================ */
-.topic-chips {
-  display: flex;
-  gap: 8px;
-  padding: 4px 20px 12px;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.topic-chips::-webkit-scrollbar {
-  display: none;
-}
+/* 标签选择 */
+.topic-chips { display: flex; gap: 8px; padding: 4px 20px 12px; overflow-x: auto; scrollbar-width: none; }
+.topic-chips::-webkit-scrollbar { display: none; }
 
 .chip {
   flex-shrink: 0;
@@ -323,38 +231,25 @@ body {
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  transition: 
-    background-color var(--md-duration-short4) var(--md-ease-standard),
-    color var(--md-duration-short4) var(--md-ease-standard),
-    border-color var(--md-duration-short4) var(--md-ease-standard);
+  transition: background-color var(--md-duration-short4) var(--md-ease-standard),
+              color var(--md-duration-short4) var(--md-ease-standard),
+              border-color var(--md-duration-short4) var(--md-ease-standard);
 }
 
-.chip.active {
-  background-color: var(--md-secondary-container);
-  color: var(--md-on-secondary-container);
-  border-color: transparent;
-}
+.chip.active { background-color: var(--md-secondary-container); color: var(--md-on-secondary-container); border-color: transparent; }
+.chip:not(.active):hover { background-color: rgba(103, 80, 164, 0.08); }
 
-.chip:not(.active):hover {
-  background-color: rgba(103, 80, 164, 0.08);
-}
-
-/* ============================================================
-   题目卡片 - Card 角色，Elevated 风格
-   ============================================================ */
+/* 题目卡片 */
 .quiz-card {
   margin: 0 16px;
   background-color: var(--md-surface-container-lowest);
   border-radius: var(--md-shape-lg);
   padding: 24px 20px 16px;
-  box-shadow: 
-    0 1px 3px rgba(0, 0, 0, 0.06),
-    0 4px 8px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 8px 3px rgba(0, 0, 0, 0.04);
   position: relative;
   overflow: hidden;
 }
 
-/* 出处标签 - Assist Chip 风格 */
 .source-label {
   display: inline-flex;
   align-items: center;
@@ -369,7 +264,6 @@ body {
   margin-bottom: 16px;
 }
 
-/* 诗句展示 - Display 或 Headline 角色 [citation:10] */
 .poem-display {
   font-size: clamp(20px, 5vw, 28px);
   font-weight: 400;
@@ -398,15 +292,7 @@ body {
   transition: border-color var(--md-duration-medium2) var(--md-ease-standard);
 }
 
-/* ============================================================
-   选项按钮 - Filled Tonal Button 风格，带答案填充
-   ============================================================ */
-.options-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin: 16px 0 8px;
-}
+.options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0 8px; }
 
 .option-btn {
   display: flex;
@@ -421,10 +307,9 @@ body {
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;
-  transition: 
-    background-color var(--md-duration-short4) var(--md-ease-standard),
-    box-shadow var(--md-duration-short4) var(--md-ease-standard),
-    transform var(--md-duration-short2) var(--md-ease-standard);
+  transition: background-color var(--md-duration-short4) var(--md-ease-standard),
+              box-shadow var(--md-duration-short4) var(--md-ease-standard),
+              transform var(--md-duration-short2) var(--md-ease-standard);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   position: relative;
   overflow: hidden;
@@ -435,23 +320,10 @@ body {
   min-height: 56px;
 }
 
-.option-btn:hover:not(:disabled) {
-  background-color: var(--md-surface-container-highest);
-  box-shadow: 
-    0 1px 3px rgba(0, 0, 0, 0.08),
-    0 4px 8px 3px rgba(0, 0, 0, 0.05);
-}
+.option-btn:hover:not(:disabled) { background-color: var(--md-surface-container-highest); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 8px 3px rgba(0, 0, 0, 0.05); }
+.option-btn:active:not(:disabled) { transform: scale(0.98); }
+.option-btn:disabled { cursor: default; opacity: 0.7; }
 
-.option-btn:active:not(:disabled) {
-  transform: scale(0.98);
-}
-
-.option-btn:disabled {
-  cursor: default;
-  opacity: 0.7;
-}
-
-/* 正确状态 - 使用 Success Container 角色 */
 .option-btn.correct {
   background-color: var(--md-success-container);
   color: #1B5E20;
@@ -468,7 +340,6 @@ body {
   color: var(--md-success);
 }
 
-/* 错误状态 - 使用 Error Container 角色 */
 .option-btn.wrong {
   background-color: var(--md-error-container);
   color: var(--md-on-error-container);
@@ -484,9 +355,6 @@ body {
   80% { transform: translateX(4px); }
 }
 
-/* ============================================================
-   反馈消息 - Body Medium 角色
-   ============================================================ */
 .feedback-message {
   text-align: center;
   font-size: 14px;
@@ -497,28 +365,12 @@ body {
   transition: color var(--md-duration-medium2) var(--md-ease-standard);
 }
 
-.feedback-message.success {
-  color: var(--md-success);
-}
+.feedback-message.success { color: var(--md-success); }
+.feedback-message.error { color: var(--md-error); }
 
-.feedback-message.error {
-  color: var(--md-error);
-}
+.action-bar { display: flex; justify-content: center; gap: 12px; padding: 16px 20px 20px; flex-wrap: wrap; }
 
-/* ============================================================
-   底部操作栏
-   ============================================================ */
-.action-bar {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  padding: 16px 20px 20px;
-  flex-wrap: wrap;
-}
-
-/* ============================================================
-   计时器 & 得分 - 使用 Label 角色
-   ============================================================ */
+/* 计时器 - 正计时模式 */
 .timer-display {
   display: flex;
   align-items: center;
@@ -536,33 +388,9 @@ body {
   text-align: center;
 }
 
-.timer-value.warning {
-  color: var(--md-error);
-  animation: timerPulse 0.8s var(--md-ease-standard) infinite alternate;
-}
+.score-display { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: var(--md-on-primary-container); }
+.score-value { font-size: 20px; font-weight: 700; min-width: 40px; text-align: center; }
 
-@keyframes timerPulse {
-  from { opacity: 1; }
-  to { opacity: 0.5; }
-}
-
-.score-display {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--md-on-primary-container);
-}
-
-.score-value {
-  font-size: 20px;
-  font-weight: 700;
-  min-width: 40px;
-  text-align: center;
-}
-
-/* 连击指示器 */
 .combo-indicator {
   display: flex;
   align-items: center;
@@ -574,13 +402,9 @@ body {
   transition: opacity var(--md-duration-medium2) var(--md-ease-emphasized);
 }
 
-.combo-indicator.show {
-  opacity: 1;
-}
+.combo-indicator.show { opacity: 1; }
 
-/* ============================================================
-   结算弹窗 - Dialog 角色，Extra Large Shape [citation:11]
-   ============================================================ */
+/* 结算弹窗 */
 .dialog-overlay {
   position: fixed;
   inset: 0;
@@ -594,10 +418,7 @@ body {
   transition: opacity var(--md-duration-medium2) var(--md-ease-standard);
 }
 
-.dialog-overlay.show {
-  opacity: 1;
-  pointer-events: auto;
-}
+.dialog-overlay.show { opacity: 1; pointer-events: auto; }
 
 .dialog-container {
   background-color: var(--md-surface-container-high);
@@ -606,47 +427,19 @@ body {
   max-width: 400px;
   width: calc(100% - 48px);
   text-align: center;
-  box-shadow: 
-    0 8px 12px 6px rgba(0, 0, 0, 0.15),
-    0 4px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 12px 6px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.3);
   transform: scale(0.9);
   transition: transform var(--md-duration-medium4) var(--md-ease-emphasized);
 }
 
-.dialog-overlay.show .dialog-container {
-  transform: scale(1);
-}
+.dialog-overlay.show .dialog-container { transform: scale(1); }
 
-.dialog-emoji {
-  font-size: 48px;
-  margin-bottom: 8px;
-}
+.dialog-emoji { font-size: 48px; margin-bottom: 8px; }
+.dialog-title { font-size: 24px; font-weight: 400; color: var(--md-on-surface); margin-bottom: 8px; letter-spacing: 0; }
+.dialog-body { font-size: 14px; font-weight: 400; line-height: 1.6; color: var(--md-on-surface-variant); margin-bottom: 24px; letter-spacing: 0.25px; }
+.dialog-body strong { color: var(--md-primary); font-weight: 600; }
 
-.dialog-title {
-  font-size: 24px;
-  font-weight: 400;
-  color: var(--md-on-surface);
-  margin-bottom: 8px;
-  letter-spacing: 0;
-}
-
-.dialog-body {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.6;
-  color: var(--md-on-surface-variant);
-  margin-bottom: 24px;
-  letter-spacing: 0.25px;
-}
-
-.dialog-body strong {
-  color: var(--md-primary);
-  font-weight: 600;
-}
-
-/* ============================================================
-   浮动分数动画 - 使用 Emphasized Easing
-   ============================================================ */
+/* 浮动分数 */
 .float-score {
   position: fixed;
   font-size: 24px;
@@ -658,19 +451,11 @@ body {
 }
 
 @keyframes floatUp {
-  0% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-80px) scale(1.3);
-  }
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-80px) scale(1.3); }
 }
 
-/* ============================================================
-   彩带效果 - 简化版
-   ============================================================ */
+/* 彩带 */
 .confetti {
   position: fixed;
   width: 8px;
@@ -681,82 +466,36 @@ body {
 }
 
 @keyframes confettiFall {
-  0% {
-    opacity: 1;
-    transform: translateY(0) rotate(0deg);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(60vh) rotate(540deg);
-  }
+  0% { opacity: 1; transform: translateY(0) rotate(0deg); }
+  100% { opacity: 0; transform: translateY(60vh) rotate(540deg); }
 }
 
-/* ============================================================
-   响应式
-   ============================================================ */
+/* 响应式 */
 @media (max-width: 600px) {
-  body {
-    padding: 8px;
-  }
-
-  .game-container {
-    border-radius: var(--md-shape-lg);
-  }
-
-  .status-bar {
-    padding: 12px 16px;
-  }
-
-  .quiz-card {
-    margin: 0 12px;
-    padding: 20px 16px 12px;
-  }
-
-  .options-grid {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-
-  .option-btn {
-    padding: 14px 10px;
-    font-size: 14px;
-  }
-
-  .action-bar {
-    padding: 12px 16px 16px;
-  }
-
-  .btn-filled,
-  .btn-tonal,
-  .btn-outlined {
-    padding: 10px 20px;
-    font-size: 13px;
-    flex: 1;
-  }
-
-  .dialog-container {
-    padding: 20px;
-  }
+  body { padding: 8px; }
+  .game-container { border-radius: var(--md-shape-lg); }
+  .status-bar { padding: 12px 16px; }
+  .quiz-card { margin: 0 12px; padding: 20px 16px 12px; }
+  .options-grid { grid-template-columns: 1fr; gap: 8px; }
+  .option-btn { padding: 14px 10px; font-size: 14px; }
+  .action-bar { padding: 12px 16px 16px; }
+  .btn-filled, .btn-tonal, .btn-outlined { padding: 10px 20px; font-size: 13px; flex: 1; }
+  .dialog-container { padding: 20px; }
 }
 
-/* 减少动效偏好 */
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
 </style>
 </head>
 <body>
 
-<div class="game-container" id="gameContainer">
+<div class="game-container">
   <!-- 顶部状态栏 -->
   <div class="status-bar">
     <div class="timer-display">
       <span>⏱</span>
-      <span class="timer-value" id="timerValue">--</span>
+      <span class="timer-value" id="timerValue">0:00</span>
     </div>
     <div class="combo-indicator" id="comboIndicator">
       <span>🔥</span>
@@ -773,13 +512,13 @@ body {
     <div class="progress-fill" id="progressFill"></div>
   </div>
 
-  <!-- 模式选择 - Segmented Button -->
+  <!-- 模式选择 -->
   <div class="mode-selector" id="modeSelector">
     <button class="segment-btn active" data-mode="grade">年级闯关</button>
     <button class="segment-btn" data-mode="topic">主题挑战</button>
   </div>
 
-  <!-- 标签选择 - Chips -->
+  <!-- 标签选择 -->
   <div class="topic-chips" id="topicChips"></div>
 
   <!-- 题目卡片 -->
@@ -807,30 +546,114 @@ body {
 <script>
 (function(){
   // ============================================================
-  // 题库（保持原有内容，略作精简展示）
+  // 题库 —— 部编版初中语文必背古诗文（七~九年级）
+  // 覆盖课内必背篇目 + 课外古诗词诵读篇目
   // ============================================================
   const questionBank = [
+    // ========== 七年级上册 ==========
     { source:"《观沧海》曹操", display:"日月之行，若出其中；______，若出其里。", answer:"星汉灿烂", type:"next", grade:"七年级", topic:"壮志豪情", distractors:["洪波涌起","秋风萧瑟","水何澹澹"] },
     { source:"《观沧海》曹操", display:"______，以观沧海。", answer:"东临碣石", type:"prev", grade:"七年级", topic:"壮志豪情", distractors:["西至昆仑","南登衡岳","北望长城"] },
     { source:"《闻王昌龄左迁龙标遥有此寄》李白", display:"我寄愁心与明月，______。", answer:"随君直到夜郎西", type:"next", grade:"七年级", topic:"友情送别", distractors:["一夜征人尽望乡","何人不起故园情","随风直到夜郎西"] },
     { source:"《次北固山下》王湾", display:"潮平两岸阔，______。", answer:"风正一帆悬", type:"next", grade:"七年级", topic:"思乡怀人", distractors:["江春入旧年","海日生残夜","归雁洛阳边"] },
+    { source:"《次北固山下》王湾", display:"______，江春入旧年。", answer:"海日生残夜", type:"prev", grade:"七年级", topic:"思乡怀人", distractors:["潮平两岸阔","风正一帆悬","乡书何处达"] },
     { source:"《天净沙·秋思》马致远", display:"枯藤老树昏鸦，______，古道西风瘦马。", answer:"小桥流水人家", type:"next", grade:"七年级", topic:"思乡怀人", distractors:["断肠人在天涯","夕阳西下","长河落日圆"] },
+    { source:"《天净沙·秋思》马致远", display:"夕阳西下，______。", answer:"断肠人在天涯", type:"next", grade:"七年级", topic:"思乡怀人", distractors:["小桥流水人家","古道西风瘦马","枯藤老树昏鸦"] },
+    { source:"《峨眉山月歌》李白", display:"峨眉山月半轮秋，______。", answer:"影入平羌江水流", type:"next", grade:"七年级", topic:"思乡怀人", distractors:["夜发清溪向三峡","思君不见下渝州","一夜征人尽望乡"] },
+    { source:"《江南逢李龟年》杜甫", display:"正是江南好风景，______。", answer:"落花时节又逢君", type:"next", grade:"七年级", topic:"友情送别", distractors:["岐王宅里寻常见","崔九堂前几度闻","何人不起故园情"] },
+    { source:"《行军九日思长安故园》岑参", display:"遥怜故园菊，______。", answer:"应傍战场开", type:"next", grade:"七年级", topic:"忧国忧民", distractors:["强欲登高去","无人送酒来","一夜征人尽望乡"] },
+    { source:"《夜上受降城闻笛》李益", display:"不知何处吹芦管，______。", answer:"一夜征人尽望乡", type:"next", grade:"七年级", topic:"边塞征战", distractors:["受降城外月如霜","回乐烽前沙似雪","思君不见下渝州"] },
+    { source:"《秋词》刘禹锡", display:"晴空一鹤排云上，______。", answer:"便引诗情到碧霄", type:"next", grade:"七年级", topic:"壮志豪情", distractors:["自古逢秋悲寂寥","我言秋日胜春朝","我劝天公重抖擞"] },
+    { source:"《夜雨寄北》李商隐", display:"何当共剪西窗烛，______。", answer:"却话巴山夜雨时", type:"next", grade:"七年级", topic:"思乡怀人", distractors:["君问归期未有期","巴山夜雨涨秋池","落花时节又逢君"] },
+    { source:"《十一月四日风雨大作》陆游", display:"夜阑卧听风吹雨，______。", answer:"铁马冰河入梦来", type:"next", grade:"七年级", topic:"忧国忧民", distractors:["僵卧孤村不自哀","尚思为国戍轮台","铁马冰河入梦来"] },
+    { source:"《潼关》谭嗣同", display:"河流大野犹嫌束，______。", answer:"山入潼关不解平", type:"next", grade:"七年级", topic:"壮志豪情", distractors:["终古高云簇此城","秋风吹散马蹄声","我言秋日胜春朝"] },
+
+    // ========== 七年级下册 ==========
     { source:"《木兰诗》北朝民歌", display:"将军百战死，______。", answer:"壮士十年归", type:"next", grade:"七年级", topic:"边塞征战", distractors:["关山度若飞","万里赴戎机","寒光照铁衣"] },
+    { source:"《木兰诗》北朝民歌", display:"______，关山度若飞。", answer:"万里赴戎机", type:"prev", grade:"七年级", topic:"边塞征战", distractors:["将军百战死","壮士十年归","朔气传金柝"] },
+    { source:"《竹里馆》王维", display:"深林人不知，______。", answer:"明月来相照", type:"next", grade:"七年级", topic:"山水田园", distractors:["独坐幽篁里","弹琴复长啸","清泉石上流"] },
+    { source:"《春夜洛城闻笛》李白", display:"此夜曲中闻折柳，______。", answer:"何人不起故园情", type:"next", grade:"七年级", topic:"思乡怀人", distractors:["谁家玉笛暗飞声","散入春风满洛城","一夜征人尽望乡"] },
+    { source:"《逢入京使》岑参", display:"马上相逢无纸笔，______。", answer:"凭君传语报平安", type:"next", grade:"七年级", topic:"思乡怀人", distractors:["故园东望路漫漫","双袖龙钟泪不干","应傍战场开"] },
+    { source:"《晚春》韩愈", display:"杨花榆荚无才思，______。", answer:"惟解漫天作雪飞", type:"next", grade:"七年级", topic:"山水田园", distractors:["草树知春不久归","百般红紫斗芳菲","百般红紫斗芳菲"] },
+    { source:"《登幽州台歌》陈子昂", display:"前不见古人，______。", answer:"后不见来者", type:"next", grade:"七年级", topic:"咏史怀古", distractors:["独怆然而涕下","念天地之悠悠","前不见来者"] },
     { source:"《望岳》杜甫", display:"会当凌绝顶，______。", answer:"一览众山小", type:"next", grade:"七年级", topic:"壮志豪情", distractors:["决眦入归鸟","阴阳割昏晓","造化钟神秀"] },
+    { source:"《望岳》杜甫", display:"______，阴阳割昏晓。", answer:"造化钟神秀", type:"prev", grade:"七年级", topic:"壮志豪情", distractors:["会当凌绝顶","一览众山小","荡胸生曾云"] },
     { source:"《登飞来峰》王安石", display:"不畏浮云遮望眼，______。", answer:"自缘身在最高层", type:"next", grade:"七年级", topic:"壮志豪情", distractors:["只缘身在此山中","一览众山小","闻说鸡鸣见日升"] },
     { source:"《游山西村》陆游", display:"山重水复疑无路，______。", answer:"柳暗花明又一村", type:"next", grade:"七年级", topic:"哲理感悟", distractors:["箫鼓追随春社近","衣冠简朴古风存","拄杖无时夜叩门"] },
     { source:"《己亥杂诗》龚自珍", display:"落红不是无情物，______。", answer:"化作春泥更护花", type:"next", grade:"七年级", topic:"哲理感悟", distractors:["吟鞭东指即天涯","浩荡离愁白日斜","我劝天公重抖擞"] },
+    { source:"《泊秦淮》杜牧", display:"商女不知亡国恨，______。", answer:"隔江犹唱后庭花", type:"next", grade:"七年级", topic:"咏史怀古", distractors:["烟笼寒水月笼沙","夜泊秦淮近酒家","东风不与周郎便"] },
+    { source:"《贾生》李商隐", display:"可怜夜半虚前席，______。", answer:"不问苍生问鬼神", type:"next", grade:"七年级", topic:"咏史怀古", distractors:["宣室求贤访逐臣","贾生才调更无伦","商女不知亡国恨"] },
+    { source:"《过松源晨炊漆公店》杨万里", display:"正入万山圈子里，______。", answer:"一山放出一山拦", type:"next", grade:"七年级", topic:"哲理感悟", distractors:["莫言下岭便无难","赚得行人错喜欢","山重水复疑无路"] },
+    { source:"《约客》赵师秀", display:"有约不来过夜半，______。", answer:"闲敲棋子落灯花", type:"next", grade:"七年级", topic:"山水田园", distractors:["黄梅时节家家雨","青草池塘处处蛙","烟笼寒水月笼沙"] },
+
+    // ========== 八年级上册 ==========
+    { source:"《野望》王绩", display:"树树皆秋色，______。", answer:"山山唯落晖", type:"next", grade:"八年级", topic:"山水田园", distractors:["东皋薄暮望","徙倚欲何依","牧人驱犊返"] },
     { source:"《黄鹤楼》崔颢", display:"日暮乡关何处是？______。", answer:"烟波江上使人愁", type:"next", grade:"八年级", topic:"思乡怀人", distractors:["白云千载空悠悠","芳草萋萋鹦鹉洲","晴川历历汉阳树"] },
+    { source:"《黄鹤楼》崔颢", display:"______，白云千载空悠悠。", answer:"黄鹤一去不复返", type:"prev", grade:"八年级", topic:"思乡怀人", distractors:["昔人已乘黄鹤去","晴川历历汉阳树","芳草萋萋鹦鹉洲"] },
     { source:"《使至塞上》王维", display:"大漠孤烟直，______。", answer:"长河落日圆", type:"next", grade:"八年级", topic:"边塞征战", distractors:["征蓬出汉塞","归雁入胡天","萧关逢候骑"] },
+    { source:"《使至塞上》王维", display:"______，长河落日圆。", answer:"大漠孤烟直", type:"prev", grade:"八年级", topic:"边塞征战", distractors:["征蓬出汉塞","归雁入胡天","萧关逢候骑"] },
+    { source:"《渡荆门送别》李白", display:"山随平野尽，______。", answer:"江入大荒流", type:"next", grade:"八年级", topic:"山水田园", distractors:["渡远荆门外","来从楚国游","月下飞天镜"] },
     { source:"《钱塘湖春行》白居易", display:"几处早莺争暖树，______。", answer:"谁家新燕啄春泥", type:"next", grade:"八年级", topic:"山水田园", distractors:["乱花渐欲迷人眼","浅草才能没马蹄","最爱湖东行不足"] },
+    { source:"《钱塘湖春行》白居易", display:"______，浅草才能没马蹄。", answer:"乱花渐欲迷人眼", type:"prev", grade:"八年级", topic:"山水田园", distractors:["几处早莺争暖树","谁家新燕啄春泥","最爱湖东行不足"] },
+    { source:"《庭中有奇树》古诗十九首", display:"攀条折其荣，______。", answer:"将以遗所思", type:"next", grade:"八年级", topic:"思乡怀人", distractors:["庭中有奇树","绿叶发华滋","馨香盈怀袖"] },
+    { source:"《龟虽寿》曹操", display:"老骥伏枥，______；烈士暮年，壮心不已。", answer:"志在千里", type:"next", grade:"八年级", topic:"壮志豪情", distractors:["神龟虽寿","犹有竟时","腾蛇乘雾"] },
+    { source:"《赠从弟（其二）》刘桢", display:"风声一何盛，______！", answer:"松枝一何劲", type:"next", grade:"八年级", topic:"哲理感悟", distractors:["亭亭山上松","瑟瑟谷中风","冰霜正惨凄"] },
+    { source:"《梁甫行》曹植", display:"柴门何萧条，______。", answer:"狐兔翔我宇", type:"next", grade:"八年级", topic:"忧国忧民", distractors:["八方各异气","千里殊风雨","剧哉边海民"] },
     { source:"《饮酒（其五）》陶渊明", display:"采菊东篱下，______。", answer:"悠然见南山", type:"next", grade:"八年级", topic:"山水田园", distractors:["飞鸟相与还","此中有真意","欲辨已忘言"] },
+    { source:"《饮酒（其五）》陶渊明", display:"______，而无车马喧。", answer:"结庐在人境", type:"prev", grade:"八年级", topic:"山水田园", distractors:["问君何能尔","心远地自偏","采菊东篱下"] },
     { source:"《春望》杜甫", display:"烽火连三月，______。", answer:"家书抵万金", type:"next", grade:"八年级", topic:"忧国忧民", distractors:["城春草木深","感时花溅泪","恨别鸟惊心"] },
-    { source:"《赤壁》杜牧", display:"东风不与周郎便，______。", answer:"铜雀春深锁二乔", type:"next", grade:"八年级", topic:"咏史怀古", distractors:["折戟沉沙铁未销","自将磨洗认前朝","天下谁人不识君"] },
+    { source:"《春望》杜甫", display:"______，城春草木深。", answer:"国破山河在", type:"prev", grade:"八年级", topic:"忧国忧民", distractors:["感时花溅泪","恨别鸟惊心","烽火连三月"] },
+    { source:"《雁门太守行》李贺", display:"黑云压城城欲摧，______。", answer:"甲光向日金鳞开", type:"next", grade:"八年级", topic:"边塞征战", distractors:["角声满天秋色里","半卷红旗临易水","霜重鼓寒声不起"] },
+    { source:"《赤壁》杜牧", display:"东风不与周郎便，______。", answer:"铜雀春深锁二乔", type:"next", grade:"八年级", topic:"咏史怀古", distractors:["折戟沉沙铁未销","自将磨洗认前朝","商女不知亡国恨"] },
+    { source:"《渔家傲》李清照", display:"九万里风鹏正举。风休住，______！", answer:"蓬舟吹取三山去", type:"next", grade:"八年级", topic:"壮志豪情", distractors:["星河欲转千帆舞","天接云涛连晓雾","我报路长嗟日暮"] },
+    { source:"《浣溪沙》晏殊", display:"无可奈何花落去，______。", answer:"似曾相识燕归来", type:"next", grade:"八年级", topic:"哲理感悟", distractors:["一曲新词酒一杯","去年天气旧亭台","夕阳西下几时回"] },
+    { source:"《采桑子》欧阳修", display:"无风水面琉璃滑，______。", answer:"不觉船移", type:"next", grade:"八年级", topic:"山水田园", distractors:["轻舟短棹西湖好","绿水逶迤","微动涟漪"] },
+    { source:"《相见欢》朱敦儒", display:"中原乱，簪缨散，几时收？______。", answer:"试倩悲风吹泪过扬州", type:"next", grade:"八年级", topic:"忧国忧民", distractors:["金陵城上西楼","倚清秋","万里夕阳垂地大江流"] },
+    { source:"《如梦令》李清照", display:"争渡，争渡，______。", answer:"惊起一滩鸥鹭", type:"next", grade:"八年级", topic:"山水田园", distractors:["常记溪亭日暮","沉醉不知归路","兴尽晚回舟"] },
+
+    // ========== 八年级下册 ==========
+    { source:"《关雎》诗经", display:"关关雎鸠，______。", answer:"在河之洲", type:"next", grade:"八年级", topic:"思乡怀人", distractors:["窈窕淑女","君子好逑","参差荇菜"] },
+    { source:"《蒹葭》诗经", display:"蒹葭苍苍，______。", answer:"白露为霜", type:"next", grade:"八年级", topic:"思乡怀人", distractors:["所谓伊人","在水一方","溯洄从之"] },
+    { source:"《式微》诗经", display:"式微式微，______？", answer:"胡不归", type:"next", grade:"八年级", topic:"忧国忧民", distractors:["微君之故","胡为乎中露","微君之躬"] },
+    { source:"《子衿》诗经", display:"青青子衿，______。", answer:"悠悠我心", type:"next", grade:"八年级", topic:"思乡怀人", distractors:["纵我不往","子宁不嗣音","青青子佩"] },
+    { source:"《送友人》李白", display:"青山横北郭，______。", answer:"白水绕东城", type:"next", grade:"八年级", topic:"友情送别", distractors:["此地一为别","孤蓬万里征","浮云游子意"] },
+    { source:"《卜算子·黄州定慧院寓居作》苏轼", display:"拣尽寒枝不肯栖，______。", answer:"寂寞沙洲冷", type:"next", grade:"八年级", topic:"哲理感悟", distractors:["缺月挂疏桐","漏断人初静","谁见幽人独往来"] },
+    { source:"《卜算子·咏梅》陆游", display:"零落成泥碾作尘，______。", answer:"只有香如故", type:"next", grade:"八年级", topic:"哲理感悟", distractors:["驿外断桥边","寂寞开无主","无意苦争春"] },
+
+    // ========== 九年级上册 ==========
     { source:"《行路难》李白", display:"长风破浪会有时，______。", answer:"直挂云帆济沧海", type:"next", grade:"九年级", topic:"壮志豪情", distractors:["欲渡黄河冰塞川","将登太行雪满山","忽复乘舟梦日边"] },
+    { source:"《行路难》李白", display:"______，忽复乘舟梦日边。", answer:"闲来垂钓碧溪上", type:"prev", grade:"九年级", topic:"壮志豪情", distractors:["欲渡黄河冰塞川","将登太行雪满山","长风破浪会有时"] },
     { source:"《酬乐天扬州初逢席上见赠》刘禹锡", display:"沉舟侧畔千帆过，______。", answer:"病树前头万木春", type:"next", grade:"九年级", topic:"哲理感悟", distractors:["怀旧空吟闻笛赋","到乡翻似烂柯人","暂凭杯酒长精神"] },
+    { source:"《酬乐天扬州初逢席上见赠》刘禹锡", display:"______，到乡翻似烂柯人。", answer:"怀旧空吟闻笛赋", type:"prev", grade:"九年级", topic:"哲理感悟", distractors:["沉舟侧畔千帆过","病树前头万木春","巴山楚水凄凉地"] },
     { source:"《水调歌头》苏轼", display:"但愿人长久，______。", answer:"千里共婵娟", type:"next", grade:"九年级", topic:"思乡怀人", distractors:["何事长向别时圆","人有悲欢离合","月有阴晴圆缺"] },
+    { source:"《水调歌头》苏轼", display:"______，千里共婵娟。", answer:"但愿人长久", type:"prev", grade:"九年级", topic:"思乡怀人", distractors:["人有悲欢离合","月有阴晴圆缺","此事古难全"] },
+    { source:"《月夜忆舍弟》杜甫", display:"露从今夜白，______。", answer:"月是故乡明", type:"next", grade:"九年级", topic:"思乡怀人", distractors:["戍鼓断人行","边秋一雁声","有弟皆分散"] },
+    { source:"《商山早行》温庭筠", display:"鸡声茅店月，______。", answer:"人迹板桥霜", type:"next", grade:"九年级", topic:"思乡怀人", distractors:["晨起动征铎","客行悲故乡","槲叶落山路"] },
+    { source:"《长沙过贾谊宅》刘长卿", display:"秋草独寻人去后，______。", answer:"寒林空见日斜时", type:"next", grade:"九年级", topic:"咏史怀古", distractors:["三年谪宦此栖迟","万古惟留楚客悲","汉文有道恩犹薄"] },
+    { source:"《左迁至蓝关示侄孙湘》韩愈", display:"云横秦岭家何在？______。", answer:"雪拥蓝关马不前", type:"next", grade:"九年级", topic:"忧国忧民", distractors:["一封朝奏九重天","夕贬潮州路八千","欲为圣明除弊事"] },
+    { source:"《咸阳城东楼》许浑", display:"溪云初起日沉阁，______。", answer:"山雨欲来风满楼", type:"next", grade:"九年级", topic:"咏史怀古", distractors:["一上高城万里愁","蒹葭杨柳似汀洲","鸟下绿芜秦苑夕"] },
+    { source:"《无题》李商隐", display:"春蚕到死丝方尽，______。", answer:"蜡炬成灰泪始干", type:"next", grade:"九年级", topic:"思乡怀人", distractors:["相见时难别亦难","东风无力百花残","晓镜但愁云鬓改"] },
+    { source:"《行香子》秦观", display:"有桃花红，李花白，______。", answer:"菜花黄", type:"next", grade:"九年级", topic:"山水田园", distractors:["树绕村庄","水满陂塘","倚东风"] },
+    { source:"《丑奴儿·书博山道中壁》辛弃疾", display:"欲说还休，______！", answer:"却道天凉好个秋", type:"next", grade:"九年级", topic:"哲理感悟", distractors:["少年不识愁滋味","爱上层楼","为赋新词强说愁"] },
+
+    // ========== 九年级下册 ==========
+    { source:"《渔家傲·秋思》范仲淹", display:"浊酒一杯家万里，______。", answer:"燕然未勒归无计", type:"next", grade:"九年级", topic:"边塞征战", distractors:["塞下秋来风景异","衡阳雁去无留意","羌管悠悠霜满地"] },
+    { source:"《渔家傲·秋思》范仲淹", display:"______，长烟落日孤城闭。", answer:"千嶂里", type:"prev", grade:"九年级", topic:"边塞征战", distractors:["四面边声连角起","衡阳雁去无留意","浊酒一杯家万里"] },
+    { source:"《江城子·密州出猎》苏轼", display:"会挽雕弓如满月，______，______。", answer:"西北望/射天狼", type:"next", grade:"九年级", topic:"壮志豪情", distractors:["左牵黄/右擎苍","锦帽貂裘/千骑卷平冈","持节云中/何日遣冯唐"] },
+    { source:"《破阵子·为陈同甫赋壮词以寄之》辛弃疾", display:"了却君王天下事，______。", answer:"赢得生前身后名", type:"next", grade:"九年级", topic:"壮志豪情", distractors:["可怜白发生","马作的卢飞快","弓如霹雳弦惊"] },
+    { source:"《破阵子·为陈同甫赋壮词以寄之》辛弃疾", display:"______，五十弦翻塞外声。", answer:"八百里分麾下炙", type:"prev", grade:"九年级", topic:"边塞征战", distractors:["醉里挑灯看剑","梦回吹角连营","沙场秋点兵"] },
+    { source:"《满江红》秋瑾", display:"身不得，男儿列，______，______。", answer:"心却比/男儿烈", type:"next", grade:"九年级", topic:"壮志豪情", distractors:["苦将侬/强派作蛾眉","莽红尘/何处觅知音","四面歌残/终破楚"] },
+    { source:"《定风波》苏轼", display:"竹杖芒鞋轻胜马，谁怕？______。", answer:"一蓑烟雨任平生", type:"next", grade:"九年级", topic:"哲理感悟", distractors:["莫听穿林打叶声","何妨吟啸且徐行","料峭春风吹酒醒"] },
+    { source:"《临江仙·夜登小阁，忆洛中旧游》陈与义", display:"古今多少事，______。", answer:"渔唱起三更", type:"next", grade:"九年级", topic:"咏史怀古", distractors:["忆昔午桥桥上饮","坐中多是豪英","二十余年如一梦"] },
+    { source:"《太常引·建康中秋夜为吕叔潜赋》辛弃疾", display:"斫去桂婆娑，______。", answer:"人道是，清光更多", type:"next", grade:"九年级", topic:"壮志豪情", distractors:["一轮秋影转金波","飞镜又重磨","把酒问姮娥"] },
+    { source:"《浣溪沙》纳兰性德", display:"被酒莫惊春睡重，赌书消得泼茶香，______。", answer:"当时只道是寻常", type:"next", grade:"九年级", topic:"思乡怀人", distractors:["谁念西风独自凉","萧萧黄叶闭疏窗","沉思往事立残阳"] },
     { source:"《过零丁洋》文天祥", display:"人生自古谁无死？______。", answer:"留取丹心照汗青", type:"next", grade:"九年级", topic:"忧国忧民", distractors:["零丁洋里叹零丁","惶恐滩头说惶恐","山河破碎风飘絮"] },
+    { source:"《过零丁洋》文天祥", display:"______，身世浮沉雨打萍。", answer:"山河破碎风飘絮", type:"prev", grade:"九年级", topic:"忧国忧民", distractors:["辛苦遭逢起一经","干戈寥落四周星","人生自古谁无死"] },
     { source:"《山坡羊·潼关怀古》张养浩", display:"兴，百姓苦；______。", answer:"亡，百姓苦", type:"next", grade:"九年级", topic:"咏史怀古", distractors:["望西都，意踌躇","伤心秦汉经行处","宫阙万间都做了土"] },
+    { source:"《山坡羊·潼关怀古》张养浩", display:"______，波涛如怒。", answer:"峰峦如聚", type:"prev", grade:"九年级", topic:"咏史怀古", distractors:["山河表里潼关路","望西都，意踌躇","伤心秦汉经行处"] },
+    { source:"《南安军》文天祥", display:"饿死真吾志，______。", answer:"梦中行采薇", type:"next", grade:"九年级", topic:"忧国忧民", distractors:["梅花南北路","风雨湿征衣","出岭同谁出"] },
+    { source:"《别云间》夏完淳", display:"无限山河泪，______。", answer:"谁言天地宽", type:"next", grade:"九年级", topic:"忧国忧民", distractors:["三年羁旅客","今日又南冠","已知泉路近"] },
+    { source:"《山坡羊·骊山怀古》张养浩", display:"赢，都变做了土；______。", answer:"输，都变做了土", type:"next", grade:"九年级", topic:"咏史怀古", distractors:["骊山四顾","阿房一炬","当时奢侈今何处"] },
+    { source:"《朝天子·咏喇叭》王磐", display:"眼见的吹翻了这家，吹伤了那家，______！", answer:"只吹的水尽鹅飞罢", type:"next", grade:"九年级", topic:"忧国忧民", distractors:["喇叭，唢呐","曲儿小腔儿大","官船来往乱如麻"] },
   ];
 
   // ============================================================
@@ -844,12 +667,11 @@ body {
   let correctCount = 0;
   let answered = false;
   let timerInterval = null;
-  let timeLeft = 0;
+  let elapsedSeconds = 0;   // 已用时间（秒）
   let comboCount = 0;
   let maxCombo = 0;
 
   // DOM
-  const gameContainer = document.getElementById('gameContainer');
   const timerValue = document.getElementById('timerValue');
   const comboIndicator = document.getElementById('comboIndicator');
   const comboValue = document.getElementById('comboValue');
@@ -906,19 +728,15 @@ body {
   }
 
   // ============================================================
-  // 计时器
+  // 正计时器（从0开始累计）
   // ============================================================
-  function startTimer(seconds) {
+  function startTimer() {
     stopTimer();
-    timeLeft = seconds;
+    elapsedSeconds = 0;
     updateTimerDisplay();
     timerInterval = setInterval(() => {
-      timeLeft--;
+      elapsedSeconds++;
       updateTimerDisplay();
-      if (timeLeft <= 0) {
-        stopTimer();
-        if (!answered) handleTimeout();
-      }
     }, 1000);
   }
 
@@ -927,11 +745,9 @@ body {
   }
 
   function updateTimerDisplay() {
-    if (timeLeft <= 0) { timerValue.textContent = '0:00'; return; }
-    const m = Math.floor(timeLeft / 60);
-    const s = timeLeft % 60;
+    const m = Math.floor(elapsedSeconds / 60);
+    const s = elapsedSeconds % 60;
     timerValue.textContent = `${m}:${s.toString().padStart(2, '0')}`;
-    timerValue.classList.toggle('warning', timeLeft <= 10);
   }
 
   // ============================================================
@@ -941,26 +757,6 @@ body {
     const total = questionQueue.length;
     const done = currentIndex;
     progressFill.style.width = (total > 0 ? (done / total) * 100 : 0) + '%';
-  }
-
-  // ============================================================
-  // 超时处理
-  // ============================================================
-  function handleTimeout() {
-    if (answered) return;
-    answered = true;
-    stopTimer();
-    document.querySelectorAll('.option-btn').forEach(b => {
-      b.disabled = true;
-      if (b.dataset.correct === 'true') b.classList.add('correct');
-    });
-    const fb = document.getElementById('feedbackMsg');
-    if (fb) { fb.textContent = '时间到'; fb.className = 'feedback-message error'; }
-    comboCount = 0;
-    updateComboDisplay();
-    skipBtn.disabled = false;
-    skipBtn.textContent = '下一题';
-    skipBtn.onclick = () => nextQuestion();
   }
 
   // ============================================================
@@ -980,7 +776,9 @@ body {
     correctCount = 0;
     comboCount = 0;
     maxCombo = 0;
+    elapsedSeconds = 0;
     scoreValue.textContent = '0';
+    updateTimerDisplay();
     updateComboDisplay();
     updateProgress();
     loadQuestion();
@@ -1015,13 +813,14 @@ body {
       const btn = document.createElement('button');
       btn.className = 'option-btn';
       btn.textContent = optText;
-      const isCorrect = (optText === q.answer);
+      const isCorrect = (optText === q.answer || q.answer.split('/').includes(optText));
       btn.dataset.correct = isCorrect ? 'true' : 'false';
       btn.addEventListener('click', (e) => handleOptionClick(btn, isCorrect, q, e));
       optionsGrid.appendChild(btn);
     });
 
-    startTimer(15);
+    // 正计时开始
+    startTimer();
     skipBtn.disabled = true;
     skipBtn.textContent = '跳过';
     skipBtn.onclick = () => {
@@ -1050,7 +849,7 @@ body {
   function handleOptionClick(btn, isCorrect, q, event) {
     if (answered) return;
     answered = true;
-    stopTimer();
+    stopTimer();  // 停止计时
 
     document.querySelectorAll('.option-btn').forEach(b => {
       b.disabled = true;
@@ -1064,9 +863,10 @@ body {
       correctCount++;
       comboCount++;
       maxCombo = Math.max(maxCombo, comboCount);
+      // 连击奖励 + 速答奖励（用时越少奖励越高）
       const comboBonus = Math.min(comboCount - 1, 5) * 3;
-      const timeBonus = Math.max(0, Math.floor(timeLeft / 3));
-      const gain = 10 + comboBonus + timeBonus;
+      const speedBonus = Math.max(0, 20 - Math.floor(elapsedSeconds / 3));
+      const gain = 10 + comboBonus + speedBonus;
       score += gain;
       scoreValue.textContent = score;
       btn.classList.add('correct');
@@ -1137,6 +937,10 @@ body {
     stopTimer();
     const total = questionQueue.length;
     const accuracy = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+    const totalTime = elapsedSeconds;
+    const m = Math.floor(totalTime / 60);
+    const s = totalTime % 60;
+    const avgTime = total > 0 ? (totalTime / total).toFixed(1) : 0;
 
     let emoji, title;
     if (accuracy >= 90) { emoji = '🏆'; title = '诗仙级表现'; }
@@ -1148,7 +952,8 @@ body {
     resultTitle.textContent = title;
     resultBody.innerHTML = `
       总题数 <strong>${total}</strong> · 答对 <strong>${correctCount}</strong> · 正确率 <strong>${accuracy}%</strong><br>
-      最高连击 <strong>${maxCombo}</strong> · 总得分 <strong>${score}</strong>
+      最高连击 <strong>${maxCombo}</strong> · 总得分 <strong>${score}</strong><br>
+      总用时 <strong>${m}分${s}秒</strong> · 平均每题 <strong>${avgTime}秒</strong>
     `;
     resultOverlay.classList.add('show');
   }
