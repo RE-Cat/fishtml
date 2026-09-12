@@ -596,8 +596,8 @@
         </svg>
       </div>
 
-      <h2 class="game-title">XF Game</h2>
-      <p class="game-desc">我自己制作的小游戏<br>点击下方按钮直接开玩</p>
+      <h2 class="game-title">古诗 小游戏</h2>
+      <p class="game-desc">我自己制作的学习小游戏<br>点击下方按钮直接开玩</p>
 
       <a href="http://xfast.cc.cd/game.html" class="game-button" target="_blank" rel="noopener noreferrer">
         <span>进入游戏</span>
