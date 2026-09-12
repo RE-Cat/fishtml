@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>初中古诗 · 语文游戏</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(145deg, #2e3b2c 0%, #4a5e3f 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', '华文楷体', 'KaiTi', 'Microsoft YaHei', serif;
+            padding: 16px;
+        }
+
+        .game-wrapper {
+            max-width: 800px;
+            width: 100%;
+            background: #fef9e8;
+            background-image: radial-gradient(circle at 20% 30%, rgba(215, 190, 140, 0.15) 0%, transparent 25%),
+                              radial-gradient(circle at 90% 70%, rgba(180, 150, 100, 0.12) 0%, transparent 30%);
+            border-radius: 48px 48px 32px 32px;
+            box-shadow: 0 30px 35px rgba(0, 0, 0, 0.5), inset 0 0 0 2px #e6d8b5, inset 0 0 30px #d9c9a6;
+            padding: 28px 24px 32px;
+            transition: all 0.2s;
+            border: 1px solid #b8a77c;
+        }
+
+        /* 仿古书卷头 */
+        .game-header {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .game-header h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #3e2e1c;
+            text-shadow: 3px 3px 0 #d9c48b, 1px 1px 0 #b38b5b;
+            letter-spacing: 6px;
+            font-family: '华文楷体', 'KaiTi', 'Times New Roman', serif;
+            padding-bottom: 8px;
+            border-bottom: 3px double #b8a77c;
+            display: inline-block;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .subhead {
+            font-size: 1rem;
+            color: #6b5a3e;
+            margin-top: 8px;
+            font-style: italic;
+            letter-spacing: 2px;
+        }
+
+        /* 计分板 */
+        .score-board {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #e8ddc7;
+            padding: 8px 22px;
+            border-radius: 60px;
+            margin: 18px 0 12px;
+            border: 1px solid #c7b289;
+            box-shadow: inset 0 2px 5px rgba(120, 90, 50, 0.2), 0 3px 0 #9b8a68;
+            font-weight: bold;
+        }
+
+        .score-board span {
+            color: #3e2e1c;
+        }
+
+        .score-value {
+            background: #3e2e1c;
+            color: #f7e9cf;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            box-shadow: inset 0 -2px 0 #1f150c, 0 3px 0 #6b4f2e;
+            font-weight: 700;
+        }
+
+        /* 主要卡片 */
+        .quiz-card {
+            background: #fff9ed;
+            border-radius: 36px;
+            padding: 26px 22px 18px;
+            box-shadow: inset 0 0 0 1px #f0e3cc, inset 0 0 20px #e7d7bd, 0 10px 15px -8px rgba(60, 40, 20, 0.4);
+            border-bottom: 6px solid #dac29b;
+            margin: 10px 0;
+        }
+
+        .question-text {
+            font-size: 1.7rem;
+            font-weight: 500;
+            color: #31261a;
+            text-align: center;
+            line-height: 1.5;
+            margin: 10px 0 25px;
+            font-family: '华文楷体', 'KaiTi', 'Georgia', serif;
+            min-height: 5rem;
+            word-break: break-word;
+            padding: 0 8px;
+        }
+
+        .highlight-blank {
+            display: inline-block;
+            min-width: 110px;
+            border-bottom: 4px solid #b38b5b;
+            margin: 0 6px;
+            padding: 0 4px;
+            color: #aa7c4a;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin: 24px 0 20px;
+        }
+
+        .option-btn {
+            background: #f2eadb;
+            border: 2px solid #cdb894;
+            border-radius: 60px;
+            padding: 16px 8px;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #3e2e1c;
+            font-family: '华文楷体', 'KaiTi', 'Segoe UI', serif;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #a48e6b, 0 8px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.1s ease;
+            letter-spacing: 1px;
+            text-align: center;
+            line-height: 1.3;
+            word-break: break-word;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background: #faf1e2;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 0 #a48e6b, 0 10px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .option-btn:active:not(:disabled) {
+            transform: translateY(5px);
+            box-shadow: 0 2px 0 #a48e6b, 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .option-btn.correct {
+            background: #cfe6cf;
+            border-color: #4f7a4f;
+            color: #1f4a1f;
+            box-shadow: 0 5px 0 #3f633f, 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .option-btn.wrong {
+            background: #f3d1d1;
+            border-color: #b35e5e;
+            color: #6b2a2a;
+            box-shadow: 0 5px 0 #8f4a4a, 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .option-btn:disabled {
+            opacity: 0.8;
+            cursor: not-allowed;
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #8f7b5c, 0 5px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .feedback {
+            text-align: center;
+            font-size: 1.2rem;
+            min-height: 2.8rem;
+            margin: 12px 0 8px;
+            font-weight: 600;
+            color: #42633b;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            padding: 6px;
+            border-radius: 30px;
+        }
+
+        .next-btn-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .next-btn {
+            background: #5d7a4b;
+            border: none;
+            padding: 16px 48px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fef7e9;
+            border-radius: 60px;
+            letter-spacing: 3px;
+            cursor: pointer;
+            box-shadow: 0 7px 0 #34462a, 0 10px 18px rgba(0, 0, 0, 0.3);
+            transition: all 0.1s ease;
+            font-family: '华文楷体', 'KaiTi', 'Segoe UI', serif;
+            border: 1px solid #a5b88b;
+        }
+
+        .next-btn:hover:not(:disabled) {
+            background: #6b8b57;
+            transform: translateY(-2px);
+            box-shadow: 0 9px 0 #34462a, 0 12px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .next-btn:active:not(:disabled) {
+            transform: translateY(5px);
+            box-shadow: 0 3px 0 #34462a, 0 7px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        .next-btn:disabled {
+            opacity: 0.5;
+            transform: translateY(4px);
+            box-shadow: 0 3px 0 #34462a;
+            cursor: default;
+        }
+
+        .footer-note {
+            text-align: center;
+            color: #7a6b53;
+            margin-top: 18px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            border-top: 1px dashed #c7b289;
+            padding-top: 14px;
+            font-style: italic;
+        }
+
+        @media (max-width: 550px) {
+            .game-wrapper {
+                padding: 18px 14px;
+                border-radius: 32px;
+            }
+
+            .game-header h1 {
+                font-size: 1.7rem;
+                letter-spacing: 3px;
+            }
+
+            .question-text {
+                font-size: 1.3rem;
+                min-height: 4.5rem;
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .option-btn {
+                padding: 14px 6px;
+                font-size: 1.1rem;
+            }
+
+            .next-btn {
+                padding: 14px 28px;
+                font-size: 1.15rem;
+            }
+
+            .highlight-blank {
+                min-width: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-wrapper">
+        <div class="game-header">
+            <h1>· 诗 词 雅 集 ·</h1>
+            <div class="subhead">初中古诗 · 补全挑战</div>
+        </div>
+
+        <div class="score-board">
+            <span>✨ 当前得分</span>
+            <span class="score-value" id="scoreDisplay">0</span>
+        </div>
+
+        <div class="quiz-card">
+            <div class="question-text" id="questionText">
+                床前明月光，疑是地上霜。<br>举头望明月，______。
+            </div>
+            <div class="options-grid" id="optionsContainer">
+                <!-- 选项动态生成 -->
+            </div>
+            <div class="feedback" id="feedbackMessage"></div>
+        </div>
+
+        <div class="next-btn-wrapper">
+            <button class="next-btn" id="nextBtn" disabled>下一题</button>
+        </div>
+        <div class="footer-note">—— 腹有诗书气自华 ——</div>
+    </div>
+
+    <script>
+        (function(){
+            // ---------- 古诗题库 ----------
+            const questions = [
+                {
+                    question: "床前明月光，疑是地上霜。举头望明月，______。",
+                    options: ["低头思故乡", "对影成三人", "天涯共此时", "孤影自彷徨"],
+                    correct: 0 // 索引 0 为正确项
+                },
+                {
+                    question: "春眠不觉晓，处处闻啼鸟。夜来风雨声，______。",
+                    options: ["花落知多少", "草色遥看近却无", "润物细无声", "一枝红杏出墙来"],
+                    correct: 0
+                },
+                {
+                    question: "______，春风不度玉门关。",
+                    options: ["羌笛何须怨杨柳", "醉卧沙场君莫笑", "劝君更尽一杯酒", "天下谁人不识君"],
+                    correct: 0
+                },
+                {
+                    question: "会当凌绝顶，______。",
+                    options: ["一览众山小", "无边落木萧萧下", "星河欲转千帆舞", "恨别鸟惊心"],
+                    correct: 0
+                },
+                {
+                    question: "沉舟侧畔千帆过，______。",
+                    options: ["病树前头万木春", "柳暗花明又一村", "千树万树梨花开", "长河落日圆"],
+                    correct: 0
+                },
+                {
+                    question: "大漠孤烟直，______。",
+                    options: ["长河落日圆", "烟波江上使人愁", "孤帆远影碧空尽", "夜泊秦淮近酒家"],
+                    correct: 0
+                },
+                {
+                    question: "日出江花红胜火，______。",
+                    options: ["春来江水绿如蓝", "夜半钟声到客船", "浅草才能没马蹄", "谁家新燕啄春泥"],
+                    correct: 0
+                },
+                {
+                    question: "莫愁前路无知己，______。",
+                    options: ["天下谁人不识君", "西出阳关无故人", "不及汪伦送我情", "江枫渔火对愁眠"],
+                    correct: 0
+                },
+                {
+                    question: "采菊东篱下，______。",
+                    options: ["悠然见南山", "把酒问青天", "邀我至田家", "对影成三人"],
+                    correct: 0
+                },
+                {
+                    question: "______，霜叶红于二月花。",
+                    options: ["停车坐爱枫林晚", "遥知兄弟登高处", "两岸猿声啼不住", "姑苏城外寒山寺"],
+                    correct: 0
+                }
+            ];
+
+            // 当前题目索引
+            let currentIndex = 0;
+            // 得分
+            let score = 0;
+            // 是否已作答本题 (防止重复点击得分)
+            let answered = false;
+
+            // DOM 元素
+            const questionTextEl = document.getElementById('questionText');
+            const optionsContainer = document.getElementById('optionsContainer');
+            const feedbackMessage = document.getElementById('feedbackMessage');
+            const nextBtn = document.getElementById('nextBtn');
+            const scoreDisplay = document.getElementById('scoreDisplay');
+
+            // ---------- 辅助: 格式化题目文本 (将下划线高亮) ----------
+            function formatQuestionText(rawQuestion) {
+                // 将 ______ 替换为带样式的span, 保留换行
+                // 但使用 innerHTML 会破坏换行，先转换换行
+                let safeStr = rawQuestion
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#039;');
+                // 恢复中文标点、换行等等。简单替换______  (6个下划线)
+                // 兼容更多下划线: 3个以上下划线
+                safeStr = safeStr.replace(/_{3,}/g, '<span class="highlight-blank">______</span>');
+                // 将换行符转换为 <br>
+                safeStr = safeStr.replace(/\n/g, '<br>');
+                return safeStr;
+            }
+
+            // ---------- 加载题目 ----------
+            function loadQuestion() {
+                // 重置作答状态
+                answered = false;
+                // 清空反馈
+                feedbackMessage.textContent = '';
+                // 禁用next按钮
+                nextBtn.disabled = true;
+
+                const q = questions[currentIndex];
+                // 显示题目
+                questionTextEl.innerHTML = formatQuestionText(q.question);
+
+                // 生成选项按钮 (随机打乱选项? 但为了简单，保留原顺序，但显示时也可以打乱，但为了正确索引，我们建立新数组)
+                // 为了保留正确答案的记录，我们先把正确选项取出，并记录文本，再打乱
+                const correctAnswerText = q.options[q.correct];
+                // 构建选项数组
+                let optionsArray = [...q.options];
+                // 打乱选项顺序 (Fisher-Yates)
+                for (let i = optionsArray.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [optionsArray[i], optionsArray[j]] = [optionsArray[j], optionsArray[i]];
+                }
+
+                // 清空并重新绘制选项
+                optionsContainer.innerHTML = '';
+                optionsArray.forEach(optText => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.textContent = optText;
+                    // 存储当前选项是否为正确 (通过比较文本)
+                    const isCorrect = (optText === correctAnswerText);
+                    btn.dataset.correct = isCorrect ? 'true' : 'false';
+                    // 添加点击事件
+                    btn.addEventListener('click', () => handleOptionClick(btn, isCorrect));
+                    optionsContainer.appendChild(btn);
+                });
+            }
+
+            // ---------- 处理选项点击 ----------
+            function handleOptionClick(btn, isCorrect) {
+                // 如果已经回答过，忽略
+                if (answered) return;
+                // 如果按钮已被禁用 (双重保险)
+                if (btn.disabled) return;
+
+                // 标记已作答
+                answered = true;
+
+                // 获取所有选项按钮
+                const allBtns = Array.from(document.querySelectorAll('.option-btn'));
+
+                // 禁用所有按钮，同时根据正确性添加样式
+                allBtns.forEach(button => {
+                    button.disabled = true;
+                    if (button.dataset.correct === 'true') {
+                        button.classList.add('correct');
+                    } else if (button === btn && !isCorrect) {
+                        // 用户选错的这个按钮变红
+                        button.classList.add('wrong');
+                    }
+                });
+
+                // 如果用户点击的是正确按钮，额外确认（防止dataset问题）
+                if (isCorrect) {
+                    // 如果用户选的本身就是正确 (利用传参)
+                    // 但可能dataset已经标记，确保正确按钮样式
+                    btn.classList.add('correct'); // 如果重复添加无害
+                    btn.classList.remove('wrong'); // 移除可能误加的wrong
+                    // 加分
+                    score += 10;
+                    scoreDisplay.textContent = score;
+                    feedbackMessage.innerHTML = '✅ 妙啊！ +10 分';
+                    feedbackMessage.style.color = '#2e6b2e';
+                } else {
+                    // 答错：用户选错，已经给该按钮添加 wrong 了
+                    // 但是正确按钮已经在循环中加上了correct
+                    feedbackMessage.innerHTML = '❌ 再想想… 正确答案已标出';
+                    feedbackMessage.style.color = '#a13d3d';
+                }
+
+                // 启用下一题按钮
+                nextBtn.disabled = false;
+            }
+
+            // ---------- 下一题 ----------
+            function nextQuestion() {
+                // 改变索引，循环
+                currentIndex = (currentIndex + 1) % questions.length;
+                // 加载新题
+                loadQuestion();
+
+                // 如果已经完成一圈，可以提示，但无所谓
+                // 如果得分达到满分？不必处理
+            }
+
+            // ---------- 初始化 & 绑定事件 ----------
+            function initGame() {
+                // 重置得分
+                score = 0;
+                scoreDisplay.textContent = '0';
+                currentIndex = 0;
+                // 加载第一题
+                loadQuestion();
+                // 绑定下一题按钮
+                nextBtn.addEventListener('click', nextQuestion);
+                // 初始时下一题按钮不可用，已经设置为disabled
+            }
+
+            // 启动游戏
+            initGame();
+
+            // 附加：点击下一题时如果还有反馈，清空由loadQuestion完成
+            // 注意: 按钮上的dataset.correct 在重新加载时会重建，没问题
+        })();
+    </script>
+</body>
+</html>
