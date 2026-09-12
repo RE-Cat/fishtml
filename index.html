@@ -1,265 +1,350 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>RE_CAT · 个人主页</title>
-  <!-- 柔和的字体与基础样式 -->
+
+  <!-- MD3 风格字体：Roboto + Google Sans 替代 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
   <style>
+    /* ============ MD3 基础设计令牌 (Design Tokens) ============ */
+    :root {
+      /* 主色 - MD3 蓝紫系 (可替换) */
+      --md-primary: #6750A4;
+      --md-on-primary: #FFFFFF;
+      --md-primary-container: #EADDFF;
+      --md-on-primary-container: #21005D;
+
+      /* 表面色 */
+      --md-surface: #FFFFFF;
+      --md-surface-dim: #F7F5F2;
+      --md-surface-container-lowest: #FFFFFF;
+      --md-surface-container-low: #FAF9F7;
+      --md-surface-container: #F3F1ED;
+      --md-surface-container-high: #ECE9E4;
+      --md-surface-container-highest: #E6E2DC;
+
+      /* 文字 */
+      --md-on-surface: #1D1B20;
+      --md-on-surface-variant: #49454F;
+      --md-outline: #79747E;
+      --md-outline-variant: #CAC4D0;
+
+      /* 圆角 */
+      --md-corner-xs: 8px;
+      --md-corner-s: 12px;
+      --md-corner-m: 16px;
+      --md-corner-l: 20px;
+      --md-corner-xl: 28px;
+      --md-corner-full: 9999px;
+
+      /* 阴影 */
+      --md-elevation-1: 0 1px 2px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04);
+      --md-elevation-2: 0 2px 4px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --md-elevation-3: 0 4px 8px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      height: 100%;
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: #f7f5f2;  /* 暖白基底 */
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--md-surface-dim);
+      color: var(--md-on-surface);
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       min-height: 100vh;
-      color: #1e1e1e;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* 主内容区域 – 包裹页面卡片，保持底部导航固定 */
+    /* ============ App 容器 ============ */
     .app {
-      flex: 1;
+      width: 100%;
+      max-width: 480px;
+      background: var(--md-surface);
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      max-width: 600px;
-      width: 100%;
-      margin: 0 auto;
-      background: #ffffff;
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.02);
-      min-height: 100vh;  /* 让白色背景贯穿 */
       position: relative;
-      border-radius: 0;    /* 移动端全宽，如果需要可加圆角 */
+      box-shadow: 0 0 40px rgba(0,0,0,0.03);
     }
 
-    /* 页面内容容器 (会随页面切换显示/隐藏) */
+    /* ============ 页面 ============ */
     .page {
       flex: 1;
       display: none;
       flex-direction: column;
-      padding: 32px 24px 20px;
-      animation: fadeIn 0.25s ease;
+      padding: 28px 20px 24px;
+      animation: mdFadeIn 0.28s cubic-bezier(0.2, 0, 0, 1);
     }
 
     .page.active {
       display: flex;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
+    @keyframes mdFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ---------- 第一页：个人信息 ---------- */
+    /* ============ 第一页：个人信息 ============ */
     .profile-section {
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
+      padding-top: 8px;
     }
 
+    /* 头像 - MD3 圆形 + 柔和高光 */
     .avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: #e0dbd2;  /* 占位底色 */
+      width: 128px;
+      height: 128px;
+      border-radius: var(--md-corner-full);
+      background: var(--md-surface);
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 20px;
-      box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.1);
-      border: 3px solid #ffffff;
-      outline: 1px solid #eeeae4;
       overflow: hidden;
-      transition: transform 0.2s ease;
+      box-shadow: var(--md-elevation-3);
+      border: 4px solid var(--md-surface);
+      outline: 1px solid var(--md-outline-variant);
+      flex-shrink: 0;
     }
 
     .avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
       display: block;
     }
 
-    /* 如果没有图片，用文字/图标替代——这里使用 CSS 绘制一个可爱的猫爪/字母，但为了通用性，保留背景色+首字母 */
+    /* 无图时的占位 */
     .avatar-placeholder {
-      font-size: 3.2rem;
-      font-weight: 600;
-      color: #b1a79b;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      font-size: 3.4rem;
+      font-weight: 500;
+      color: var(--md-on-surface-variant);
       line-height: 1;
     }
 
+    /* 用户名 - MD3 Display Small */
     .username {
-      font-size: 2rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin-bottom: 4px;
-      color: #111;
+      font-size: 2.05rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--md-on-surface);
+      margin-bottom: 6px;
+      line-height: 1.15;
     }
 
-    .username small {
-      font-size: 1rem;
-      font-weight: 400;
-      color: #9c8f82;
-      margin-left: 6px;
-      letter-spacing: 0.3px;
-    }
-
+    /* 副标题 */
     .tagline {
-      font-size: 0.9rem;
-      color: #8f8479;
-      margin-bottom: 28px;
+      font-size: 0.92rem;
       font-weight: 400;
+      color: var(--md-on-surface-variant);
+      margin-bottom: 32px;
+      line-height: 1.4;
+      letter-spacing: 0.1px;
     }
 
-    /* 社交卡片列表 */
+    /* ============ 社交卡片列表 (MD3 List) ============ */
     .social-list {
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-top: 8px;
+      gap: 10px;
     }
 
     .social-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
       padding: 14px 18px;
-      background: #faf9f7;
-      border-radius: 18px;
-      border: 1px solid #f0ece7;
-      transition: all 0.15s ease;
+      background: var(--md-surface-container-low);
+      border-radius: var(--md-corner-m);
       text-decoration: none;
       color: inherit;
+      transition: background 0.18s ease, transform 0.12s ease;
+      border: none;
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none;
     }
 
     .social-item:hover {
-      background: #f3f1ed;
-      border-color: #e4ddd4;
-      transform: scale(1.005);
+      background: var(--md-surface-container);
     }
 
+    .social-item:active {
+      transform: scale(0.985);
+      background: var(--md-surface-container-high);
+    }
+
+    /* 非链接项（如微信）不可点击 */
+    .social-item.static {
+      cursor: default;
+    }
+
+    .social-item.static:active {
+      transform: none;
+    }
+
+    /* 左侧图标 + 标签 */
     .social-left {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-weight: 500;
-    }
-
-    .social-icon {
-      width: 28px;
-      height: 28px;
-      background: #e9e3db;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      color: #6b5f54;
-      font-weight: 600;
+      gap: 14px;
       flex-shrink: 0;
     }
 
+    /* MD3 圆形图标背景 */
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--md-corner-full);
+      background: var(--md-primary-container);
+      color: var(--md-on-primary-container);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      font-weight: 600;
+      flex-shrink: 0;
+      letter-spacing: -0.02em;
+    }
+
     .social-label {
-      font-size: 0.98rem;
-      color: #3d352e;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--md-on-surface);
+      letter-spacing: 0.1px;
     }
 
+    /* 右侧 handle 文字 - 修复截断 */
     .social-handle {
-      font-size: 0.92rem;
-      color: #7b6e62;
+      font-size: 0.88rem;
       font-weight: 400;
-      max-width: 180px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      color: var(--md-on-surface-variant);
+      text-align: right;
+      flex-shrink: 1;
+      min-width: 0;
+      line-height: 1.35;
+      word-break: break-all;   /* 允许长邮箱换行 */
     }
 
-    /* 第二个页面专属样式 */
+    /* ============ 第二页：游戏页 ============ */
     .game-page {
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 40px 24px;
+      padding: 40px 28px;
+      gap: 0;
     }
 
-    .game-icon {
-      font-size: 4rem;
-      margin-bottom: 24px;
-      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.05));
+    .game-icon-wrapper {
+      width: 96px;
+      height: 96px;
+      border-radius: var(--md-corner-full);
+      background: var(--md-primary-container);
+      color: var(--md-on-primary-container);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .game-icon-wrapper .material-symbols-rounded {
+      font-size: 48px;
+      font-variation-settings: 'FILL' 1, 'wght' 400;
     }
 
     .game-title {
-      font-size: 1.8rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin-bottom: 10px;
+      font-size: 1.75rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--md-on-surface);
+      margin-bottom: 12px;
     }
 
     .game-desc {
-      font-size: 1rem;
-      color: #7b6e62;
-      max-width: 260px;
-      margin-bottom: 32px;
-      line-height: 1.5;
+      font-size: 0.95rem;
+      color: var(--md-on-surface-variant);
+      line-height: 1.55;
+      max-width: 280px;
+      margin-bottom: 36px;
     }
 
+    /* MD3 Filled Button */
     .game-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      background: #1e1e1e;
-      color: white;
+      gap: 8px;
+      background: var(--md-primary);
+      color: var(--md-on-primary);
       text-decoration: none;
       font-weight: 500;
-      padding: 16px 32px;
-      border-radius: 60px;
-      font-size: 1.05rem;
+      font-size: 0.95rem;
       letter-spacing: 0.3px;
-      transition: all 0.2s ease;
-      border: 1px solid #1e1e1e;
-      box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.15);
+      padding: 16px 28px;
+      border-radius: var(--md-corner-full);
+      border: none;
+      transition: background 0.18s ease, transform 0.12s ease, box-shadow 0.18s ease;
+      box-shadow: var(--md-elevation-1);
+      cursor: pointer;
+      min-height: 56px;
     }
 
     .game-button:hover {
-      background: #333;
-      border-color: #333;
-      transform: translateY(-2px);
-      box-shadow: 0 14px 22px -10px rgba(0, 0, 0, 0.2);
+      background: #7965AF;
+      box-shadow: var(--md-elevation-2);
     }
 
     .game-button:active {
-      transform: translateY(0);
-      box-shadow: 0 6px 12px -8px rgba(0, 0, 0, 0.2);
+      transform: scale(0.97);
+      box-shadow: none;
     }
 
-    /* 底部导航栏 */
+    .game-button .material-symbols-rounded {
+      font-size: 22px;
+      font-variation-settings: 'FILL' 1, 'wght' 500;
+    }
+
+    .game-url {
+      margin-top: 20px;
+      font-size: 0.75rem;
+      color: var(--md-outline);
+      letter-spacing: 0.4px;
+    }
+
+    /* ============ MD3 底部导航栏 ============ */
     .bottom-nav {
       display: flex;
-      align-items: center;
+      align-items: stretch;
       justify-content: space-around;
-      background: #ffffff;
-      border-top: 1px solid #f0ece7;
-      padding: 10px 0 12px;
+      background: var(--md-surface-container);
+      padding: 8px 0 calc(8px + env(safe-area-inset-bottom, 0px));
       width: 100%;
-      max-width: 600px;
-      margin: 0 auto;
       position: sticky;
       bottom: 0;
       z-index: 10;
-      backdrop-filter: blur(8px);
-      background: rgba(255, 255, 255, 0.95);
+      border-top: 1px solid var(--md-outline-variant);
     }
 
     .nav-btn {
@@ -267,89 +352,107 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      justify-content: center;
+      gap: 3px;
       background: transparent;
       border: none;
       font-family: inherit;
       font-size: 0.72rem;
       font-weight: 500;
-      color: #a89e93;
-      padding: 8px 0 4px;
+      letter-spacing: 0.3px;
+      color: var(--md-on-surface-variant);
+      padding: 8px 0 6px;
       cursor: pointer;
-      transition: color 0.15s ease, transform 0.1s ease;
-      letter-spacing: 0.2px;
+      transition: color 0.18s ease;
+      position: relative;
       -webkit-tap-highlight-color: transparent;
     }
 
-    .nav-btn svg {
-      width: 24px;
-      height: 24px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      transition: stroke 0.15s ease;
+    /* MD3 指示药丸 (active indicator) */
+    .nav-btn .icon-pill {
+      width: 64px;
+      height: 32px;
+      border-radius: var(--md-corner-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+      position: relative;
+    }
+
+    .nav-btn .material-symbols-rounded {
+      font-size: 24px;
+      font-variation-settings: 'FILL' 0, 'wght' 400;
+      transition: font-variation-settings 0.2s ease;
+      color: inherit;
     }
 
     .nav-btn.active {
-      color: #1e1e1e;
+      color: var(--md-on-surface);
       font-weight: 600;
     }
 
-    .nav-btn.active svg {
-      stroke: #1e1e1e;
-      stroke-width: 2;
+    .nav-btn.active .icon-pill {
+      background: var(--md-primary-container);
     }
 
-    .nav-btn:hover {
-      color: #5a4f46;
+    .nav-btn.active .material-symbols-rounded {
+      color: var(--md-on-primary-container);
+      font-variation-settings: 'FILL' 1, 'wght' 500;
     }
 
     .nav-btn:active {
       transform: scale(0.96);
     }
 
-    /* 小调整 */
-    .spacer {
-      height: 4px;
-    }
-
-    /* 移动端友好的内边距 */
-    @media (max-width: 420px) {
+    /* ============ 响应式微调 ============ */
+    @media (max-width: 380px) {
       .page {
-        padding: 24px 18px 16px;
+        padding: 22px 16px 20px;
       }
       .avatar {
-        width: 100px;
-        height: 100px;
+        width: 108px;
+        height: 108px;
       }
       .username {
-        font-size: 1.7rem;
+        font-size: 1.8rem;
       }
       .social-item {
         padding: 12px 14px;
       }
+      .social-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 0.85rem;
+      }
+      .social-label {
+        font-size: 0.92rem;
+      }
       .social-handle {
-        max-width: 130px;
+        font-size: 0.82rem;
       }
     }
   </style>
 </head>
 <body>
+
   <div class="app">
-    <!-- 第一页：个人信息 -->
+    <!-- ============ 第一页：个人信息 ============ -->
     <div class="page active" id="page-profile">
       <div class="profile-section">
-        <!-- 头像区: 因为无实际图片，用占位文字 RE 表示猫猫感，也可以替换成img -->
+        <!-- 头像：把 src 换成你的头像图片路径即可 -->
         <div class="avatar">
-          <img src="re_cat.webp" alt="RE_CAT avatar">，目
+          <img src="avatar.png" alt="RE_CAT avatar">
+          <!-- 如果暂时没有图片，可以删除上面的 <img>，改用下面的占位： -->
+          <!-- <span class="avatar-placeholder">🐱</span> -->
         </div>
-        <div class="username">RE_CAT</div>
-        <div class="tagline">digital creature · 偶尔写游戏</div>
 
-        <!-- 社交链接列表，使用语义化锚点 -->
+        <h1 class="username">RE_CAT</h1>
+        <p class="tagline">digital creature · 偶尔写游戏</p>
+
+        <!-- 社交链接列表 -->
         <div class="social-list">
+
           <!-- Bilibili -->
           <a href="https://space.bilibili.com/" class="social-item" target="_blank" rel="noopener noreferrer">
             <div class="social-left">
@@ -359,8 +462,8 @@
             <span class="social-handle">@ARE_CAT</span>
           </a>
 
-          <!-- Weixin (微信) 用文本展示，可添加复制或跳转? 一般展示微信号-->
-          <div class="social-item" style="cursor: default;">
+          <!-- Weixin（展示用，不跳转） -->
+          <div class="social-item static">
             <div class="social-left">
               <span class="social-icon">微</span>
               <span class="social-label">Weixin</span>
@@ -385,93 +488,75 @@
             </div>
             <span class="social-handle">@RE_CAT0</span>
           </a>
+
         </div>
       </div>
-      <div class="spacer"></div>
     </div>
 
-    <!-- 第二页：游戏页面 (内容展示+跳转链接) -->
+    <!-- ============ 第二页：游戏页 ============ -->
     <div class="page game-page" id="page-game">
-      <div class="game-icon">🎮</div>
-      <div class="game-title">XF Game</div>
-      <div class="game-desc">
-        我自己制作的小游戏<br>点击下方按钮直接开玩
+      <div class="game-icon-wrapper">
+        <span class="material-symbols-rounded">sports_esports</span>
       </div>
+
+      <h2 class="game-title">XF Game</h2>
+      <p class="game-desc">我自己制作的小游戏<br>点击下方按钮直接开玩</p>
+
       <!-- 跳转至 xfast.cc.cd/game.html -->
       <a href="http://xfast.cc.cd/game.html" class="game-button" target="_blank" rel="noopener noreferrer">
         <span>进入游戏</span>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: white;">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-          <polyline points="12 5 19 12 12 19"></polyline>
-        </svg>
+        <span class="material-symbols-rounded">arrow_forward</span>
       </a>
-      <div style="margin-top: 24px; font-size: 0.8rem; color: #b9afa5;">
-        xfast.cc.cd/game.html
-      </div>
+
+      <div class="game-url">xfast.cc.cd/game.html</div>
     </div>
 
-    <!-- 底部导航栏 -->
+    <!-- ============ MD3 底部导航栏 ============ -->
     <nav class="bottom-nav">
       <button class="nav-btn active" id="navProfile" aria-label="个人信息">
-        <svg viewBox="0 0 24 24">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </svg>
+        <span class="icon-pill">
+          <span class="material-symbols-rounded">person</span>
+        </span>
         <span>我的</span>
       </button>
+
       <button class="nav-btn" id="navGame" aria-label="游戏">
-        <svg viewBox="0 0 24 24">
-          <rect x="2" y="6" width="20" height="12" rx="3" ry="3"></rect>
-          <line x1="8" y1="12" x2="16" y2="12"></line>
-          <line x1="12" y1="8" x2="12" y2="16"></line>
-        </svg>
+        <span class="icon-pill">
+          <span class="material-symbols-rounded">sports_esports</span>
+        </span>
         <span>游戏</span>
       </button>
     </nav>
   </div>
 
   <script>
-    (function() {
-      // 获取页面元素
+    (function () {
       const pageProfile = document.getElementById('page-profile');
       const pageGame = document.getElementById('page-game');
       const navProfile = document.getElementById('navProfile');
       const navGame = document.getElementById('navGame');
 
-      // 切换页面函数
       function setActivePage(pageId) {
-        // 隐藏所有页面
         pageProfile.classList.remove('active');
         pageGame.classList.remove('active');
+        navProfile.classList.remove('active');
+        navGame.classList.remove('active');
 
-        // 显示选中页面
         if (pageId === 'profile') {
           pageProfile.classList.add('active');
           navProfile.classList.add('active');
-          navGame.classList.remove('active');
-        } else if (pageId === 'game') {
+        } else {
           pageGame.classList.add('active');
           navGame.classList.add('active');
-          navProfile.classList.remove('active');
         }
+
+        // 切换页面时回到顶部
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
-      // 为导航按钮绑定事件
-      navProfile.addEventListener('click', function() {
-        setActivePage('profile');
-      });
-
-      navGame.addEventListener('click', function() {
-        setActivePage('game');
-      });
-
-      // 可选：检查url hash? 但为了简单，不处理。保持默认第一页。
-      // 如果希望点击游戏按钮后，在游戏页面有一个跳转，但已经用a标签实现了。
-      // 确保所有社交链接无干扰。
+      navProfile.addEventListener('click', () => setActivePage('profile'));
+      navGame.addEventListener('click', () => setActivePage('game'));
     })();
   </script>
-
-  <!-- 一些额外的安全处理：如果目标网站是http，但当前是https可能被block，保留用户自行处理 -->
-  <!-- 注意：xfast.cc.cd/game.html 可能无https，但用户要求原样跳转，直接使用a标签即可 -->
 </body>
 </html>
