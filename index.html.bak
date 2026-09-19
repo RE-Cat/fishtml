@@ -14,8 +14,8 @@
 <style>
   /* ============================================================
      Next Material You — 三页
-     色板：纯白 / 纯黑 / 樱花粉 / 青色 / 紫色 / 绿色
-     规则：饱和度↑ 明度↑，色相不变，不冷暖偏移
+     主页 / 我的 / 设置
+     设置页放显眼的 Next 字标
      ============================================================ */
 
   * {
@@ -25,7 +25,6 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* ---------- 浅色 ---------- */
   :root {
     --ex-bg-0: #f4f4f4;
     --ex-bg-1: #fefefe;
@@ -37,16 +36,10 @@
     --ex-text: #1a1a1a;
     --ex-text-soft: #9a9a9a;
 
-    /* 基础色 */
     --ex-sakura: #f7c5d0;
     --ex-sakura-bloom: #ffd9e2;
     --ex-cyan: #a8e0e6;
     --ex-cyan-bloom: #c2f0f5;
-    --ex-purple: #c9b6e4;
-    --ex-purple-bloom: #dbcbf0;
-    --ex-green: #b3ddb3;
-    --ex-green-bloom: #c9ecc9;
-
     --ex-gray-track: #ececec;
 
     --ex-radius-outer: 36px;
@@ -65,7 +58,6 @@
     --ex-motion-standard: cubic-bezier(0.2, 0, 0, 1);
   }
 
-  /* ---------- 深色：背景四层，保留色相 ---------- */
   body.mono {
     --ex-bg-0: #0e0e0e;
     --ex-bg-1: #161616;
@@ -81,11 +73,6 @@
     --ex-sakura-bloom: #6e4650;
     --ex-cyan: #2a4a4e;
     --ex-cyan-bloom: #355a60;
-    --ex-purple: #3e3352;
-    --ex-purple-bloom: #4c3f63;
-    --ex-green: #2e4a2e;
-    --ex-green-bloom: #3a5a3a;
-
     --ex-gray-track: #333333;
 
     --ex-shadow-card:
@@ -285,8 +272,6 @@
   }
   .social-icon.cyan { background: var(--ex-cyan); }
   .social-icon.sakura { background: var(--ex-sakura); }
-  .social-icon.purple { background: var(--ex-purple); }
-  .social-icon.green { background: var(--ex-green); }
   .social-icon.gray { background: var(--ex-gray-track); }
 
   .social-label {
@@ -418,7 +403,7 @@
   .ex-switch.active .knob { transform: translateX(22px); }
 
   /* ============================================================
-     设计介绍 — 显眼 Next
+     设计介绍 — 显眼版
      ============================================================ */
   .design-card {
     background: var(--ex-bg-2);
@@ -428,6 +413,7 @@
     border: 1px solid var(--ex-border);
   }
 
+  /* 显眼的 Next 字标 */
   .design-brand {
     display: flex;
     flex-direction: column;
@@ -462,28 +448,6 @@
     text-transform: uppercase;
     color: var(--ex-text-soft);
   }
-
-  /* 色板展示 */
-  .swatch-row {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-
-  .swatch {
-    width: 32px;
-    height: 32px;
-    border-radius: 999px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-  }
-  .swatch.white { background: #fefefe; border: 1px solid #e0e0e0; }
-  .swatch.black { background: #111111; }
-  .swatch.sakura { background: var(--ex-sakura); }
-  .swatch.cyan { background: var(--ex-cyan); }
-  .swatch.purple { background: var(--ex-purple); }
-  .swatch.green { background: var(--ex-green); }
 
   .design-desc {
     font-size: 0.82rem;
@@ -684,6 +648,7 @@
     </div>
 
     <div class="design-card">
+      <!-- 显眼的 Next 字标 -->
       <div class="design-brand">
         <div class="next-logo">
           <span class="n">N</span><span class="e">e</span><span class="x">x</span><span class="t">t</span>
@@ -691,19 +656,9 @@
         <div class="design-subtitle">Material You</div>
       </div>
 
-      <!-- 色板展示 -->
-      <div class="swatch-row">
-        <span class="swatch white"></span>
-        <span class="swatch black"></span>
-        <span class="swatch sakura"></span>
-        <span class="swatch cyan"></span>
-        <span class="swatch purple"></span>
-        <span class="swatch green"></span>
-      </div>
-
       <div class="design-desc">
         <p>以 Material You 的圆角与结构为基础，去掉冷暖温度，只保留纯度。</p>
-        <p>色板：纯白、纯黑、樱花粉、青色、紫色、绿色，不冷不暖。</p>
+        <p>色板：纯白、纯黑、樱花粉、青色，不冷不暖。</p>
         <p>点击反馈为 Bloom：饱和度与明度提升，色相不变。</p>
         <p>阴影跟随元素轮廓，不填充容器。</p>
         <p>图标统一使用 Material Symbols，禁止 Emoji。</p>
