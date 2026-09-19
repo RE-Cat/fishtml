@@ -12,7 +12,13 @@
 <style>
   /* ============================================================
      Next Material You — 个人主页
-     圆角：外层 36px，内层 28px，名字胶囊 28px
+     1. 色板：纯白 / 纯黑 / 樱花粉 / 青色，不冷不暖
+     2. 默认不给极值，留出 Bloom 余量
+     3. 点击 Bloom：饱和度↑ 明度↑，色相不变
+     4. 阴影跟随元素轮廓，不填充容器
+     5. 圆角沿用 Material You，不改
+     6. 字体统一 Nunito（圆体）
+     7. 胶囊 = 大圆角矩形包裹物
      ============================================================ */
 
   * {
@@ -36,8 +42,9 @@
     --ex-text: #1a1a1a;
     --ex-text-soft: #9a9a9a;
 
-    --ex-radius-outer: 36px;
-    --ex-radius-inner: 28px;
+    --ex-radius-lg: 28px;
+    --ex-radius-md: 20px;
+    --ex-radius-sm: 14px;
 
     --ex-shadow-card:
       0 4px 12px rgba(0,0,0,0.06),
@@ -49,7 +56,9 @@
     --ex-motion-standard: cubic-bezier(0.2, 0, 0, 1);
   }
 
-  html, body { height: 100%; }
+  html, body {
+    height: 100%;
+  }
 
   body {
     font-family: 'Nunito', system-ui, -apple-system, "Segoe UI", Roboto,
@@ -74,6 +83,9 @@
     box-shadow: 0 0 40px rgba(0,0,0,0.03);
   }
 
+  /* ============================================================
+     页面
+     ============================================================ */
   .page {
     flex: 1;
     display: flex;
@@ -103,23 +115,29 @@
   }
 
   .avatar img {
-    width: 100%; height: 100%;
-    object-fit: cover; object-position: center;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
     display: block;
   }
 
   .avatar-placeholder {
-    font-size: 3.2rem; font-weight: 800;
-    color: var(--ex-text-soft); line-height: 1;
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: var(--ex-text-soft);
+    line-height: 1;
   }
 
-  /* ---------- 名字胶囊：更圆 ---------- */
+  /* ============================================================
+     名字胶囊 — 灰色大圆角矩形
+     ============================================================ */
   .username-pill {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     background: var(--ex-pill-bg);
-    border-radius: var(--ex-radius-inner);     /* 28px */
+    border-radius: var(--ex-radius-md);
     padding: 6px 22px;
     margin-bottom: 8px;
     box-shadow: var(--ex-shadow-soft);
@@ -141,11 +159,13 @@
     line-height: 1.4;
   }
 
-  /* ---------- 社交栏外层：更圆 ---------- */
+  /* ============================================================
+     社交栏外层：大圆角矩形
+     ============================================================ */
   .social-group {
     width: 100%;
     background: var(--ex-pill-bg);
-    border-radius: var(--ex-radius-outer);     /* 36px */
+    border-radius: var(--ex-radius-lg);
     padding: 10px;
     box-shadow: var(--ex-shadow-soft);
     display: flex;
@@ -153,7 +173,7 @@
     gap: 8px;
   }
 
-  /* ---------- 内层每一条：更圆 ---------- */
+  /* 内层每一条：圆角矩形，白底 */
   .social-item {
     display: flex;
     align-items: center;
@@ -161,7 +181,7 @@
     gap: 12px;
     padding: 10px 16px 10px 10px;
     background: var(--ex-white-bloom);
-    border-radius: var(--ex-radius-inner);     /* 28px */
+    border-radius: var(--ex-radius-md);
     text-decoration: none;
     color: inherit;
     border: none;
@@ -180,7 +200,9 @@
     box-shadow: 0 4px 10px rgba(0,0,0,0.08);
   }
 
-  .social-item.static { cursor: default; }
+  .social-item.static {
+    cursor: default;
+  }
   .social-item.static:active {
     background: var(--ex-sakura-bloom);
     transform: scale(0.98);
@@ -194,10 +216,14 @@
   }
 
   .social-icon {
-    width: 36px; height: 36px;
+    width: 36px;
+    height: 36px;
     border-radius: 999px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.85rem; font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 800;
     color: var(--ex-black);
     flex-shrink: 0;
     box-shadow: 0 1px 3px rgba(0,0,0,0.08);
@@ -207,27 +233,32 @@
   .social-icon.gray { background: var(--ex-gray-track); }
 
   .social-label {
-    font-size: 0.92rem; font-weight: 700;
+    font-size: 0.92rem;
+    font-weight: 700;
     color: var(--ex-black);
   }
 
   .social-handle {
-    font-size: 0.82rem; font-weight: 600;
+    font-size: 0.82rem;
+    font-weight: 600;
     color: var(--ex-text-soft);
     text-align: right;
-    flex-shrink: 1; min-width: 0;
+    flex-shrink: 1;
+    min-width: 0;
     line-height: 1.35;
     word-break: break-all;
   }
 
-  /* ---------- 响应式 ---------- */
+  /* ============================================================
+     响应式
+     ============================================================ */
   @media (max-width: 380px) {
     .page { padding: 32px 16px 40px; }
     .avatar { width: 108px; height: 108px; }
     .username { font-size: 1.6rem; }
-    .username-pill { padding: 5px 18px; border-radius: 24px; }
-    .social-group { padding: 8px; gap: 6px; border-radius: 30px; }
-    .social-item { padding: 9px 14px 9px 9px; border-radius: 24px; }
+    .username-pill { padding: 5px 18px; border-radius: 18px; }
+    .social-group { padding: 8px; gap: 6px; border-radius: 24px; }
+    .social-item { padding: 9px 14px 9px 9px; border-radius: 16px; }
     .social-icon { width: 34px; height: 34px; font-size: 0.8rem; }
     .social-label { font-size: 0.88rem; }
     .social-handle { font-size: 0.78rem; }
@@ -246,14 +277,17 @@
              onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=\'avatar-placeholder\'>R</span>';">
       </div>
 
+      <!-- 名字胶囊 -->
       <div class="username-pill">
         <h1 class="username">RE_CAT</h1>
       </div>
 
       <p class="tagline">digital creature · 偶尔写游戏</p>
 
+      <!-- 社交栏外层大圆角矩形 -->
       <div class="social-group">
 
+        <!-- Bilibili -->
         <a href="https://space.bilibili.com/" class="social-item" target="_blank" rel="noopener noreferrer">
           <div class="social-left">
             <span class="social-icon sakura">B</span>
@@ -262,6 +296,7 @@
           <span class="social-handle">@ARE_CAT</span>
         </a>
 
+        <!-- Weixin -->
         <div class="social-item static">
           <div class="social-left">
             <span class="social-icon cyan">微</span>
@@ -270,6 +305,7 @@
           <span class="social-handle">@Re_Cat_Me</span>
         </div>
 
+        <!-- Gmail -->
         <a href="mailto:arch.recat@gmail.com" class="social-item">
           <div class="social-left">
             <span class="social-icon gray">G</span>
@@ -278,6 +314,7 @@
           <span class="social-handle">arch.recat@gmail.com</span>
         </a>
 
+        <!-- Telegram -->
         <a href="https://t.me/RE_CAT0" class="social-item" target="_blank" rel="noopener noreferrer">
           <div class="social-left">
             <span class="social-icon cyan">TG</span>
